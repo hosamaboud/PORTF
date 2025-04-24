@@ -1,0 +1,10 @@
+# General rules
+User-agent: *
+Disallow:
+
+# Specific block
+User-agent: BadBot
+Disallow: /
+
+# Sitemap
+Sitemap: https://HossamAboud.com/sitemap.xml

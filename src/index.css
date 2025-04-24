@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    @apply h-full w-full; /* استخدم h-full بدل h-[100%] */
+  }
+
+  body {
+    @apply text-[#ededf5] bg-[#0C1318];
+    font-family: 'Bebas Neue', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  /* تحسينات لـ Lenis Smooth Scroll */
+  html.lenis {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  /* تعريف احتياطي للخطوط */
+  @font-face {
+    font-family: 'Bebas Neue Fallback';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Arial Narrow Bold'), local('Arial Narrow');
+    size-adjust: 105%;
+  }
+}
+
+[data-scroll-container] {
+  will-change: transform;
+}
+
+@layer utilities {
+  .cursor-hover-effect {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .line_1,
+  .line_2 {
+    @apply absolute h-px w-[18px] bg-black transition-all duration-300 ease-in-out;
+  }
+
+  .logo-clip-path-2 {
+    clip-path: polygon(0 35%, 100% 0, 65% 100%, 56% 43%);
+    will-change: transform, opacity;
+  }
+
+  /* تحسينات لتحميل الخط */
+  .font-loading {
+    font-family: 'Bebas Neue Fallback', sans-serif;
+    letter-spacing: 0.02em;
+  }
+
+  .font-loaded {
+    font-family: 'Bebas Neue', sans-serif;
+  }
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spin2 {
+    0% {
+      stroke-dasharray: 1, 800;
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke-dasharray: 400, 400;
+      stroke-dashoffset: -200px;
+    }
+    100% {
+      stroke-dasharray: 800, 1;
+      stroke-dashoffset: -800px;
+    }
+  }
+
+  .spin2 {
+    transform-origin: center;
+    animation: spin2 1.9s ease-in-out infinite, spin 3.8s linear infinite;
+    animation-direction: alternate;
+  }
+}
