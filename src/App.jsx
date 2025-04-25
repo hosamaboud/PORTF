@@ -7,7 +7,7 @@ import Cv from './page/Cv';
 import About from './page/About';
 import Home from './page/Home';
 import Projects from './page/Projects';
-import Contact from './page/contact';
+import Contact from './page/Contact';
 import Preloader from './page/Preloader';
 
 const App = () => {
