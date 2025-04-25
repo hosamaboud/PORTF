@@ -3,10 +3,13 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "vite",
-    "prebuild": "chmod +x node_modules/.bin/vite",
-    "build": "vite build",
+    "prebuild": "rm -rf node_modules && npm install",
+    "build": "npx vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
