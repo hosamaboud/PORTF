@@ -8,6 +8,7 @@ import About from './page/About';
 import Home from './page/Home';
 import Projects from './page/Projects';
 import Contact from './page/contact';
+import Preloader from './page/Preloader';
 
 const App = () => {
   useLenis();
