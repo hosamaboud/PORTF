@@ -9,8 +9,20 @@ const CustomCursor = ({ enabled = true }) => {
   const pos = useRef({ x: 0, y: 0 });
   const mouse = useRef({ x: 0, y: 0 });
   const [isActive, setIsActive] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // أنواع التأثيرات
+  // التحقق من الموبايل
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const CURSOR_TYPES = {
     DEFAULT: 'default',
     HOVER: 'hover',
@@ -18,7 +30,6 @@ const CustomCursor = ({ enabled = true }) => {
     SPECIAL: 'special',
   };
 
-  // تحديث العناصر القابلة للتفاعل مع ديبونس
   const updateHoverItems = useCallback(() => {
     hoverItems.current.forEach((item) => {
       item.removeEventListener('mouseenter', handleHover);
@@ -37,7 +48,6 @@ const CustomCursor = ({ enabled = true }) => {
     });
   }, []);
 
-  // تأثيرات التحويم مع تحسينات الأداء
   const handleHover = useCallback(
     (e) => {
       if (!followerRef.current || !enabled) return;
@@ -80,13 +90,11 @@ const CustomCursor = ({ enabled = true }) => {
     [enabled]
   );
 
-  // إعادة المؤشر للحالة الافتراضية
   const handleHoverOut = useCallback(() => {
     if (!followerRef.current || !enabled) return;
     animateCursor(CURSOR_TYPES.DEFAULT);
   }, [enabled]);
 
-  // تأثير النقر مع تحسينات
   const handleClick = useCallback(() => {
     if (!followerRef.current || !enabled) return;
 
@@ -99,7 +107,6 @@ const CustomCursor = ({ enabled = true }) => {
     });
   }, [enabled]);
 
-  // حركة المؤشر مع ديبونس
   const updateCursorPosition = useCallback(
     (e) => {
       mouse.current = {
@@ -112,7 +119,6 @@ const CustomCursor = ({ enabled = true }) => {
     [isActive]
   );
 
-  // تحريك المؤشر مع GSAP
   const animateCursor = (type, props = {}) => {
     const defaults = {
       content: '',
@@ -146,17 +152,14 @@ const CustomCursor = ({ enabled = true }) => {
     }
   };
 
-  // حلقة الحركة مع تحسينات الأداء
   const animate = useCallback(() => {
     if (!enabled) return;
 
-    // حركة المؤشر الأساسي (سريعة ودقيقة)
     gsap.set(cursorRef.current, {
       x: mouse.current.x,
       y: mouse.current.y,
     });
 
-    // حركة المؤشر التابع (ناعمة مع قوة فيزيائية)
     pos.current.x = gsap.utils.interpolate(pos.current.x, mouse.current.x, 0.2);
     pos.current.y = gsap.utils.interpolate(pos.current.y, mouse.current.y, 0.2);
 
@@ -168,14 +171,11 @@ const CustomCursor = ({ enabled = true }) => {
     requestRef.current = requestAnimationFrame(animate);
   }, [enabled]);
 
-  // تهيئة المؤشر
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled || isMobile) return;
 
-    // إخفاء المؤشر الأصلي
     document.body.style.cursor = 'none';
 
-    // تهيئة المؤشر المخصص
     gsap.set([cursorRef.current, followerRef.current], {
       xPercent: -50,
       yPercent: -50,
@@ -188,14 +188,11 @@ const CustomCursor = ({ enabled = true }) => {
       ease: 'power3.out',
     });
 
-    // بدء الحركة
     requestRef.current = requestAnimationFrame(animate);
 
-    // إضافة مستمعات الأحداث
     window.addEventListener('mousemove', updateCursorPosition);
     window.addEventListener('click', handleClick);
 
-    // مراقبة تغيرات DOM مع تحسينات
     const observer = new MutationObserver(updateHoverItems);
     observer.observe(document.body, {
       childList: true,
@@ -204,11 +201,9 @@ const CustomCursor = ({ enabled = true }) => {
       attributeFilter: ['data-cursor', 'data-cursor-text'],
     });
 
-    // تحديث العناصر القابلة للتفاعل
     updateHoverItems();
 
     return () => {
-      // التنظيف
       cancelAnimationFrame(requestRef.current);
       window.removeEventListener('mousemove', updateCursorPosition);
       window.removeEventListener('click', handleClick);
@@ -220,9 +215,16 @@ const CustomCursor = ({ enabled = true }) => {
         item.removeEventListener('mouseleave', handleHoverOut);
       });
     };
-  }, [animate, enabled, handleClick, updateCursorPosition, updateHoverItems]);
+  }, [
+    animate,
+    enabled,
+    isMobile,
+    handleClick,
+    updateCursorPosition,
+    updateHoverItems,
+  ]);
 
-  if (!enabled) return null;
+  if (!enabled || isMobile) return null;
 
   return (
     <>

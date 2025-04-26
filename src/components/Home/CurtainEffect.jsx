@@ -44,7 +44,7 @@ const CurtainEffect = () => {
         scrub: 4,
         pin: true,
         pinSpacing: false,
-        markers: true,
+        markers: false,
         onEnter: () => lenis?.stop?.(),
         onLeaveBack: () => lenis?.start?.(),
         onRefresh: () => setTimeout(() => lenis?.start?.(), 300),
