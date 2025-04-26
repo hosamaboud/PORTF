@@ -73,7 +73,7 @@ const Hero = () => {
   return (
     <div
       ref={containerRef}
-      className="relative  overflow-hidden w-full h-[200vh] bg-black"
+      className="relative  overflow-hidden w-full h-[100vh] md:h-[200vh] bg-black"
     >
       <div
         ref={part_1Ref}

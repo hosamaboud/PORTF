@@ -123,7 +123,7 @@ const Description = () => {
       <div className="flex md:w-[200vw] flex-col md:flex-row overflow-hidden p-10 ">
         <div
           ref={designRef_1}
-          className=" h-[60vh]   md:w-[40vw] flex z-10 overflow-hidden  flex-col relative border-[1px]"
+          className=" h-[40vh] md:h-[60vh]   md:w-[40vw] flex z-10 overflow-hidden  flex-col relative border-[1px]"
         >
           <div className="flex mt-4 justify-between md:w-[40vw] ">
             <div className="flex flex-col px-5 gap-4">
@@ -147,7 +147,7 @@ const Description = () => {
         </div>
         <div
           ref={designRef_2}
-          className="h-[60vh]  md:w-[40vw] flex z-20 overflow-hidden flex-col relative border-[1px]"
+          className="h-[40vh] md:h-[60vh]   md:w-[40vw] flex z-20 overflow-hidden flex-col relative border-[1px]"
         >
           <div className="flex mt-4 justify-between md:w-[40vw]">
             <div className="flex flex-col px-5 gap-4">
@@ -170,7 +170,7 @@ const Description = () => {
         </div>
         <div
           ref={designRef_3}
-          className="h-[60vh]  md:w-[40vw] flex overflow-hidden  z-30 flex-col relative border-[1px]"
+          className="h-[40vh] md:h-[60vh]   md:w-[40vw] flex overflow-hidden  z-30 flex-col relative border-[1px]"
         >
           <div className="flex  mt-4 justify-between md:w-[40vw]">
             <div className="flex flex-col px-5 gap-4">
@@ -193,7 +193,7 @@ const Description = () => {
         </div>
         <div
           ref={designRef_4}
-          className="h-[60vh]   md:w-[40vw] overflow-hidden flex z-40 flex-col relative border-[1px]"
+          className="h-[40vh] md:h-[60vh]    md:w-[40vw] overflow-hidden flex z-40 flex-col relative border-[1px]"
         >
           <div className="flex mt-4 justify-between md:w-[40vw]">
             <div className="flex flex-col px-5 gap-4">
@@ -216,7 +216,7 @@ const Description = () => {
         </div>
         <div
           ref={designRef_5}
-          className="h-[60vh]  border-[#981943] md:w-[35vw] z-50 flex flex-col relative mt-10 md:mt-0  md:border-[1px]"
+          className="h-[40vh] md:h-[60vh]   border-[#981943] md:w-[35vw] z-50 flex flex-col relative mt-10 md:mt-0  md:border-[1px]"
         >
           <div className=" border-b-[3px]  border-[#981943] flex ">
             <h1 className="uppercase font-extrabold  text-[6vw]">Ready?</h1>
