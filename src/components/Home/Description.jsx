@@ -68,8 +68,8 @@ const Description = () => {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: designRef.current,
-            start: '8% top',
-            end: '+=1600 top',
+            start: '14% top',
+            end: '+=500 top',
             markers: true,
             scrub: 1,
             pin: true,
@@ -120,7 +120,7 @@ const Description = () => {
           knowledge to help you thrive.
         </p>
       </div>
-      <div className="flex h-[400vh]  md:h-[100vh]  md:w-[200vw] flex-col md:flex-row overflow-hidden p-2  md:p-10 ">
+      <div className="flex h-[205vh]  md:h-[100vh]  md:w-[200vw] flex-col md:flex-row overflow-hidden p-2  md:p-10 ">
         <div
           ref={designRef_1}
           className=" h-[40vh] md:h-[60vh]   md:w-[40vw] flex z-10 overflow-hidden  flex-col relative border-[1px]"
