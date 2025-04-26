@@ -12,7 +12,7 @@ const CurtainEffect = () => {
   const imageRef = useRef(null);
 
   useEffect(() => {
-    const xValue = window.innerWidth > 600 ? 600 : '300%';
+    const xValue = window.innerWidth > 600 ? 600 : "300%";
     const containerText = containerTextRef.current;
     const text_1 = text_1Ref.current;
     const text_2 = text_2Ref.current;
@@ -102,9 +102,9 @@ const CurtainEffect = () => {
   }, [lenis]);
 
   return (
-    <div className=" flex flex-col items-center justify-center  px-5 relative h-[110vh] w-full bg-[#031a1a] ">
+    <div className=" flex flex-col md:items-center md:justify-center   px-5 relative  md:h-[110vh] w-full bg-[#031a1a] ">
       <svg
-        className="absolute w-full h-full bg-transparent"
+        className="absolute w-full md:h-full bg-transparent"
         ref={svgRef}
         viewBox="0 0 1000 1000"
         preserveAspectRatio="none"
@@ -117,9 +117,9 @@ const CurtainEffect = () => {
 
       <div
         ref={containerTextRef}
-        className="w-full relative  h-[100vh] flex justify-center items-center overflow-hidden"
+        className="w-full relative h-[100vh] flex justify-center items-center overflow-hidden"
       >
-        <div className="w-full h-[50vh] md:h-full relative">
+        <div className="w-full h-full relative">
           {/* النص الأول */}
           <div className="flex items-center gap-5 text-[#7df0e4] text-[3vw] w-full font-extrabold text-nowrap opacity-10 absolute left-[10%] top-40 uppercase">
             hi there i'm hossam aboud.
