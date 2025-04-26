@@ -19,7 +19,7 @@ const Hero = () => {
           trigger: part_1Ref.current,
           start: 'top top',
           end: '+=1300',
-          scrub: 1,
+          scrub: 1.5,
           pin: true,
           markers: false,
           anticipatePin: 1,

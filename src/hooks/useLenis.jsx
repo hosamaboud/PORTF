@@ -1,16 +1,19 @@
 import { useEffect, useRef } from 'react';
 import Lenis from '@studio-freight/lenis';
-import { gsap } from 'gsap';
+import { gsap } from '../gsap-config';
 
 const useLenis = () => {
   const lenisRef = useRef(null);
 
   useEffect(() => {
     const lenis = new Lenis({
-      lerp: 0.07, // قيمة أقل لسلاسة أكثر دقة
-      wheelMultiplier: 0.7, // تقليل حساسية العجلة
+      lerp: 0.1, // زيادة السلاسة
+      wheelMultiplier: 0.7,
+      touchMultiplier: 1.2, // تحسين حساسية اللمس
       smoothWheel: true,
-      syncTouch: true, // تحسين الأداء على الأجهزة اللوحية
+      syncTouch: true,
+      syncTouchLerp: 0.1, // سلاسة أكبر لللمس
+      touchInertiaMultiplier: 20, // تقليل القصور الذاتي
     });
 
     // التكامل مع GSAP
@@ -26,7 +29,6 @@ const useLenis = () => {
       requestAnimationFrame(raf);
     };
     requestAnimationFrame(raf);
-    
 
     return () => {
       lenis.destroy();

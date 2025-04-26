@@ -12,7 +12,7 @@ const CurtainEffect = () => {
   const imageRef = useRef(null);
 
   useEffect(() => {
-    const xValue = window.innerWidth > 600 ? 600 : '300%';
+    const xValue = window.innerWidth > 600 ? 600 : '150%';
     const containerText = containerTextRef.current;
     const text_1 = text_1Ref.current;
     const text_2 = text_2Ref.current;
