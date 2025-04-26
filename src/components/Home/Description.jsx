@@ -68,8 +68,8 @@ const Description = () => {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: designRef.current,
-            start: '11% top',
-            end: '+=1100',
+            start: '15% top',
+            end: '+=1600 top',
             markers: false,
             scrub: 1,
             pin: true,
@@ -120,7 +120,7 @@ const Description = () => {
           knowledge to help you thrive.
         </p>
       </div>
-      <div className="flex md:w-[200vw] flex-col md:flex-row overflow-hidden p-10 ">
+      <div className="flex h-[370vh]  md:h-[100vh]  md:w-[200vw] flex-col md:flex-row overflow-hidden p-10 ">
         <div
           ref={designRef_1}
           className=" h-[40vh] md:h-[60vh]   md:w-[40vw] flex z-10 overflow-hidden  flex-col relative border-[1px]"
@@ -138,7 +138,7 @@ const Description = () => {
               </h1>
             </div>
           </div>
-          <div className="absolute bottom-10 left-2 w-[60%]">
+          <div className="absolute bottom-0 w-full md:bottom-10 left-2  md:w-[60%]">
             <h3 className="text-[#7ec2ea] uppercase text-lg md:text-[1.5vw] font-roboto">
               Unique, thoughtfully designed interfaces to reinforce your
               business authority.
@@ -162,7 +162,7 @@ const Description = () => {
               </h1>
             </div>
           </div>
-          <div className="absolute bottom-10 left-2 w-[60%]">
+          <div className="absolute bottom-0 w-full md:bottom-10 left-2  md:w-[60%]">
             <h3 className="text-[#7ec2ea] uppercase text-lg md:text-[1.5vw] font-roboto">
               User-friendly back offices to make content management a breeze.
             </h3>
@@ -185,7 +185,7 @@ const Description = () => {
               </h1>
             </div>
           </div>
-          <div className="absolute bottom-10 left-2 w-[60%]">
+          <div className="absolute bottom-0 w-full md:bottom-10 left-2  md:w-[60%]">
             <h3 className="text-[#7ec2ea] uppercase text-lg md:text-[1.5vw] font-roboto">
               Engaging user experiences that turn visitors into customers.
             </h3>
@@ -208,7 +208,7 @@ const Description = () => {
               </h1>
             </div>
           </div>
-          <div className="absolute bottom-10 left-2 w-[60%]">
+          <div className="absolute bottom-0 w-full md:bottom-10 left-2  md:w-[60%]">
             <h3 className="text-[#7ec2ea] uppercase text-lg md:text-[1.5vw] font-roboto">
               Scalable websites designed to expand with your business.
             </h3>
@@ -221,7 +221,7 @@ const Description = () => {
           <div className=" border-b-[3px]  border-[#981943] flex ">
             <h1 className="uppercase font-extrabold  text-[6vw]">Ready?</h1>
           </div>
-          <div className="absolute bottom-10 right-2 w-[60%]">
+          <div className="absolute bottom-0 w-full md:bottom-10 left-2  md:w-[60%]">
             <p className="text-[#7ec2ea] uppercase text-sm font-roboto">
               Code. Create. Conquer. With us, no regrets.
             </p>

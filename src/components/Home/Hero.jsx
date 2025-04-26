@@ -13,6 +13,7 @@ const Hero = () => {
 
   useEffect(() => {
     lenis.current?.stop();
+    const mm = gsap.matchMedia();
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -65,7 +66,7 @@ const Hero = () => {
         ease: 'power1.inOut',
         duration: 1,
       });
-    }, containerRef);
+    });
 
     return () => ctx.revert();
   }, []);
@@ -73,7 +74,7 @@ const Hero = () => {
   return (
     <div
       ref={containerRef}
-      className="relative  overflow-hidden w-full h-[100vh] md:h-[200vh] bg-black"
+      className="relative  overflow-hidden w-full h-[200vh] bg-black"
     >
       <div
         ref={part_1Ref}

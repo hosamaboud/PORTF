@@ -12,7 +12,7 @@ const CurtainEffect = () => {
   const imageRef = useRef(null);
 
   useEffect(() => {
-    const xValue = window.innerWidth > 600 ? 600 : "300%";
+    const xValue = window.innerWidth > 600 ? 600 : '300%';
     const containerText = containerTextRef.current;
     const text_1 = text_1Ref.current;
     const text_2 = text_2Ref.current;
@@ -102,7 +102,7 @@ const CurtainEffect = () => {
   }, [lenis]);
 
   return (
-    <div className=" flex flex-col md:items-center md:justify-center   px-5 relative  md:h-[110vh] w-full bg-[#031a1a] ">
+    <div className=" flex flex-col  relative h-[110vh] w-full bg-[#031a1a] ">
       <svg
         className="absolute w-full md:h-full bg-transparent"
         ref={svgRef}
