@@ -143,7 +143,7 @@ const CurtainEffect = () => {
         </div>
 
         {/* SVG Circle */}
-        <div className="absolute top-1/2 translate-y-[-10%] left-0  h-[20vh]  w-[20vw]">
+        <div className="absolute top-1/2 translate-y-[-10%] left-0 h-[30vh] w-[30vw]  md:h-[20vh]  md:w-[20vw]">
           <svg
             ref={circleRf}
             xmlns="http://www.w3.org/2000/svg"
