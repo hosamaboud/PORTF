@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
+import { gsap } from '../../gsap-config';
 import { FaArrowDown } from 'react-icons/fa';
 import useLenis from '../../hooks/useLenis';
 
@@ -50,8 +50,11 @@ const Hero = () => {
         { opacity: 1, x: '50%', zIndex: '10', ease: 'none' },
         0
       );
-      [0, 2, 4].forEach((i) => {
-        tl.to(`.row-${i}`, { y: `-${i * 10}%`, ease: 'none' }, 0);
+      [1, 3, 5].forEach((i) => {
+        tl.to(`.row-${i}`, { y: `-${i * 5}%`, ease: 'none' }, 0);
+      });
+      [2, 4].forEach((i) => {
+        tl.to(`.row-${i}`, { y: `${i * 5}%`, ease: 'none' }, 0);
       });
       gsap.to(scrollDownRef.current, {
         opacity: 0.5,

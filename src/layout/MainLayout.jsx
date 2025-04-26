@@ -8,7 +8,7 @@ const MainLayout = () => {
     <>
       <CustomCursor />
       <Navbar />
-      <main className="">
+      <main className="px-4 md:px-0">
         <Outlet />
       </main>
 

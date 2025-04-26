@@ -1,25 +1,26 @@
 import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap, ScrollTrigger } from '../../gsap-config';
 import useLenis from '../../hooks/useLenis';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const CurtainEffect = () => {
   const lenis = useLenis();
+  const containerTextRef = useRef(null);
   const text_1Ref = useRef(null);
   const text_2Ref = useRef(null);
   const circleRf = useRef(null);
   const svgRef = useRef(null);
+  const imageRef = useRef(null);
 
   useEffect(() => {
+    const xValue = window.innerWidth > 600 ? 600 : "300%";
+    const containerText = containerTextRef.current;
     const text_1 = text_1Ref.current;
     const text_2 = text_2Ref.current;
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: svgRef.current,
         start: '10% 90%',
-        end: '+=900',
+        end: '+=100',
         markers: false,
         scrub: 2,
         onEnter: () => lenis?.stop?.(),
@@ -34,37 +35,65 @@ const CurtainEffect = () => {
       },
       duration: 10,
       ease: 'power3.out',
-    })
+    });
+    const tl_2 = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerText,
+        start: 'top top',
+        end: '+=200 top',
+        scrub: 4,
+        pin: true,
+        pinSpacing: false,
+        markers: true,
+        onEnter: () => lenis?.stop?.(),
+        onLeaveBack: () => lenis?.start?.(),
+        onRefresh: () => setTimeout(() => lenis?.start?.(), 300),
+      },
+    });
+
+    tl_2
       .fromTo(
         text_1,
         { width: '0%' },
         {
           width: '100%',
-          duration: 3,
           ease: 'sine.inOut',
         },
-        '+=1'
+        '<'
       )
       .fromTo(
         text_2,
         { width: '0%' },
         {
           width: '100%',
-          duration: 3,
           ease: 'sine.inOut',
-        },
-        '+=.5'
+        }
       )
       .fromTo(
         circleRf.current,
-        { x: '0%', rotate: 0 },
         {
-          x: '-300%',
-          rotate: -360,
-          duration: 20,
-          ease: 'power4.inOut',
+          opacity: 0,
+          scale: 0.8,
+          x: -100,
         },
-        '+=.1'
+        {
+          opacity: 1,
+          scale: 1,
+          x: xValue,
+          rotate: 360,
+        },
+        '-=.5'
+      )
+      .fromTo(
+        imageRef.current,
+        {
+          opacity: 0,
+          y: 50,
+        },
+        {
+          opacity: 1,
+          y: 0,
+        }
       );
 
     return () => {
@@ -73,7 +102,7 @@ const CurtainEffect = () => {
   }, [lenis]);
 
   return (
-    <div className="relative h-[110vh] w-full bg-[#031a1a] ">
+    <div className=" flex flex-col items-center justify-center  px-5 relative h-[110vh] w-full bg-[#031a1a] ">
       <svg
         className="absolute w-full h-full bg-transparent"
         ref={svgRef}
@@ -86,7 +115,10 @@ const CurtainEffect = () => {
         ></path>
       </svg>
 
-      <div className="w-full relative  h-[100vh] flex justify-center items-center overflow-hidden">
+      <div
+        ref={containerTextRef}
+        className="w-full relative  h-[100vh] flex justify-center items-center overflow-hidden"
+      >
         <div className="w-full h-full relative">
           {/* النص الأول */}
           <div className="flex items-center gap-5 text-[#7df0e4] text-[3vw] w-full font-extrabold text-nowrap opacity-10 absolute left-[10%] top-40 uppercase">
@@ -111,7 +143,7 @@ const CurtainEffect = () => {
         </div>
 
         {/* SVG Circle */}
-        <div className="absolute  right-0 bottom-[20%]  md:bottom-[-1%] h-[30vh]  w-[30vw] pointer-events-none">
+        <div className="absolute top-1/2 translate-y-[-10%] left-0  h-[20vh]  w-[20vw]">
           <svg
             ref={circleRf}
             xmlns="http://www.w3.org/2000/svg"
@@ -287,6 +319,16 @@ const CurtainEffect = () => {
           </svg>
         </div>
       </div>
+      <div
+        ref={imageRef}
+        style={{
+          backgroundImage: `url(/3.jpg)`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+        className=" w-full rounded-xl relative md:absolute md:right-0 bottom-0   h-[30vw]  md:w-[30vw]  "
+      ></div>
     </div>
   );
 };

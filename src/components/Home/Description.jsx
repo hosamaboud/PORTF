@@ -1,11 +1,11 @@
-import gsap from 'gsap';
-import CustomButton from '../Utils/CustomButton';
+import { gsap } from '../../gsap-config';
 import { useEffect, useRef } from 'react';
 import { SiAntdesign } from 'react-icons/si';
 import { MdOutlineCodeOff } from 'react-icons/md';
 import { AiFillOpenAI } from 'react-icons/ai';
 import { FaExpandArrowsAlt } from 'react-icons/fa';
 import useLenis from '../../hooks/useLenis';
+import CustomButton from '../Utils/CustomButton';
 
 const Description = () => {
   const lenis = useLenis();

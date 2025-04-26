@@ -8,7 +8,7 @@ const useLenis = () => {
   useEffect(() => {
     const lenis = new Lenis({
       lerp: 0.07, // قيمة أقل لسلاسة أكثر دقة
-      wheelMultiplier: 0.8, // تقليل حساسية العجلة
+      wheelMultiplier: 0.7, // تقليل حساسية العجلة
       smoothWheel: true,
       syncTouch: true, // تحسين الأداء على الأجهزة اللوحية
     });
