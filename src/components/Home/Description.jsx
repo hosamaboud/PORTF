@@ -139,7 +139,7 @@ const Description = () => {
             </div>
           </div>
           <div className="absolute bottom-10 left-2 w-[60%]">
-            <h3 className="text-[#7ec2ea] uppercase text-[1.5vw] font-roboto">
+            <h3 className="text-[#7ec2ea] uppercase text-lg md:text-[1.5vw] font-roboto">
               Unique, thoughtfully designed interfaces to reinforce your
               business authority.
             </h3>
@@ -163,7 +163,7 @@ const Description = () => {
             </div>
           </div>
           <div className="absolute bottom-10 left-2 w-[60%]">
-            <h3 className="text-[#7ec2ea] uppercase text-[1.5vw] font-roboto">
+            <h3 className="text-[#7ec2ea] uppercase text-lg md:text-[1.5vw] font-roboto">
               User-friendly back offices to make content management a breeze.
             </h3>
           </div>
@@ -186,7 +186,7 @@ const Description = () => {
             </div>
           </div>
           <div className="absolute bottom-10 left-2 w-[60%]">
-            <h3 className="text-[#7ec2ea] uppercase text-[1.5vw] font-roboto">
+            <h3 className="text-[#7ec2ea] uppercase text-lg md:text-[1.5vw] font-roboto">
               Engaging user experiences that turn visitors into customers.
             </h3>
           </div>
@@ -209,7 +209,7 @@ const Description = () => {
             </div>
           </div>
           <div className="absolute bottom-10 left-2 w-[60%]">
-            <h3 className="text-[#7ec2ea] uppercase text-[1.5vw] font-roboto">
+            <h3 className="text-[#7ec2ea] uppercase text-lg md:text-[1.5vw] font-roboto">
               Scalable websites designed to expand with your business.
             </h3>
           </div>

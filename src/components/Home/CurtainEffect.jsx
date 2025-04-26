@@ -12,7 +12,7 @@ const CurtainEffect = () => {
   const imageRef = useRef(null);
 
   useEffect(() => {
-    const xValue = window.innerWidth > 600 ? 600 : "300%";
+    const xValue = window.innerWidth > 600 ? 600 : '300%';
     const containerText = containerTextRef.current;
     const text_1 = text_1Ref.current;
     const text_2 = text_2Ref.current;
@@ -119,7 +119,7 @@ const CurtainEffect = () => {
         ref={containerTextRef}
         className="w-full relative  h-[100vh] flex justify-center items-center overflow-hidden"
       >
-        <div className="w-full h-full relative">
+        <div className="w-full h-[50vh] md:h-full relative">
           {/* النص الأول */}
           <div className="flex items-center gap-5 text-[#7df0e4] text-[3vw] w-full font-extrabold text-nowrap opacity-10 absolute left-[10%] top-40 uppercase">
             hi there i'm hossam aboud.
