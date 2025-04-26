@@ -13,7 +13,6 @@ const Hero = () => {
 
   useEffect(() => {
     lenis.current?.stop();
-    const mm = gsap.matchMedia();
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -80,7 +79,7 @@ const Hero = () => {
         ref={part_1Ref}
         className="relative overflow-hidden w-full h-[100vh]"
       >
-        <div className="flex flex-col  items-center absolute bottom-10 right-10 z-10">
+        <div className="flex flex-col  items-center fixed bottom-20 right-5  md:right-10 z-10">
           <p className=" text-sm ">scroll down</p>
           <FaArrowDown ref={scrollDownRef} className="  text-sm" />
         </div>
