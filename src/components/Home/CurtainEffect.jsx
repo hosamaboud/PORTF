@@ -12,7 +12,7 @@ const CurtainEffect = () => {
   const imageRef = useRef(null);
 
   useEffect(() => {
-    const xValue = window.innerWidth > 600 ? 600 : '150%';
+    const xValue = window.innerWidth > 600 ? 600 : '200%';
     const containerText = containerTextRef.current;
     const text_1 = text_1Ref.current;
     const text_2 = text_2Ref.current;
@@ -143,7 +143,7 @@ const CurtainEffect = () => {
         </div>
 
         {/* SVG Circle */}
-        <div className="absolute top-1/2 translate-y-[-10%] left-0 h-[30vh] w-[30vw]  md:h-[20vh]  md:w-[20vw]">
+        <div className="absolute top-1/2 md:translate-y-[-10%] translate-y-[-30%] left-0 h-[30vh] w-[30vw]  md:h-[20vh]  md:w-[20vw]">
           <svg
             ref={circleRf}
             xmlns="http://www.w3.org/2000/svg"
@@ -327,7 +327,7 @@ const CurtainEffect = () => {
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
         }}
-        className=" w-full rounded-xl relative md:absolute md:right-0 bottom-0   h-[30vw]  md:w-[30vw]  "
+        className=" w-full rounded-xl relative md:absolute md:right-0 bottom-0  h-[40vh] md:h-[30vh]  md:w-[30vw]  "
       ></div>
     </div>
   );

@@ -68,7 +68,7 @@ const Description = () => {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: designRef.current,
-            start: '11% top',
+            start: '10% top',
             end: '+=500 top',
             markers: true,
             scrub: 1,
