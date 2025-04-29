@@ -5,6 +5,7 @@ import AnimatedText from '../components/Utils/AnimatedText';
 const Preloader = ({ setIsLoading }) => {
   const containerRef = useRef(null);
   const textRef_2 = useRef(null);
+  const imgRef = useRef(null);
   const textRef = useRef(null);
   const lineRef = useRef(null);
 
@@ -21,6 +22,17 @@ const Preloader = ({ setIsLoading }) => {
         ease: 'back.out(1.7)',
       }
     )
+      .fromTo(
+        imgRef.current,
+        { opacity: 0, x:'200%', rotate:360 },
+        {
+          opacity: 1,
+          rotate:0,
+          x: 0,
+          duration: 0.6,
+          ease: 'power1',
+        }
+      )
       .fromTo(
         textRef.current,
         { y: -50 },
@@ -57,7 +69,7 @@ const Preloader = ({ setIsLoading }) => {
           },
           '-=0.5'
         );
-    }, 2200);
+    }, 2900);
 
     return () => clearTimeout(timer);
   }, [setIsLoading]);
@@ -67,11 +79,17 @@ const Preloader = ({ setIsLoading }) => {
       ref={containerRef}
       className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden bg-[#96f686]"
     >
-      <div className="absolute top-1/2 -translate-y-1/2 left-1 flex items-end ">
+      <div className="absolute top-1/2 -translate-y-1/2 left-1 flex items-center gap-3 ">
         <AnimatedText
-          text="hossam•"
+          text="hossam"
           ref={textRef_2}
           className="text-[20vw] opacity-100 font-bebas font-extrabold text-black"
+        />
+        <img
+          ref={imgRef}
+          className="w-[10vw] h-[10vw]"
+          src="/logo.svg"
+          alt="logo"
         />
       </div>
       <div className="absolute left-[40%] bottom-20">

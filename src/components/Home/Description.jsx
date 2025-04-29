@@ -17,14 +17,15 @@ const Description = () => {
   const designRef_5 = useRef(null);
 
   useEffect(() => {
+    const design = designRef.current;
     lenis.current?.stop();
     const mm = gsap.matchMedia();
-    if (designRef.current) {
+    if (design) {
       // Desktop animations
       mm.add('(min-width: 768px)', () => {
         const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: designRef.current,
+            trigger: design,
             start: 'top top',
             end: '+=1000',
             scrub: true,
@@ -69,8 +70,8 @@ const Description = () => {
           scrollTrigger: {
             trigger: designRef.current,
             start: '10% top',
-            end: '+=500 top',
-            markers: true,
+            end: '+=700 top',
+            markers: false,
             scrub: 1,
             pin: true,
             pinSpacing: false,
@@ -120,7 +121,7 @@ const Description = () => {
           knowledge to help you thrive.
         </p>
       </div>
-      <div className="flex h-[205vh]  md:h-[100vh]  md:w-[200vw] flex-col md:flex-row overflow-hidden p-2  md:p-10 ">
+      <div className="flex h-[210vh]  md:h-[100vh]  md:w-[200vw] flex-col md:flex-row overflow-hidden p-2  md:p-10 ">
         <div
           ref={designRef_1}
           className=" h-[40vh] md:h-[60vh]   md:w-[40vw] flex z-10 overflow-hidden  flex-col relative border-[1px]"

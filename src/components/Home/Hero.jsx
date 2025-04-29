@@ -18,7 +18,7 @@ const Hero = () => {
         scrollTrigger: {
           trigger: part_1Ref.current,
           start: 'top top',
-          end: '+=1300',
+          end: '+=1100',
           scrub: 1.5,
           pin: true,
           markers: false,

@@ -12,7 +12,7 @@ const CurtainEffect = () => {
   const imageRef = useRef(null);
 
   useEffect(() => {
-    const xValue = window.innerWidth > 600 ? 600 : '200%';
+    const xValue = window.innerWidth > 600 ? 600 : '300%';
     const containerText = containerTextRef.current;
     const text_1 = text_1Ref.current;
     const text_2 = text_2Ref.current;
@@ -40,7 +40,7 @@ const CurtainEffect = () => {
       scrollTrigger: {
         trigger: containerText,
         start: 'top top',
-        end: '+=200 top',
+        end: '+=300 top',
         scrub: 4,
         pin: true,
         pinSpacing: false,
@@ -60,6 +60,19 @@ const CurtainEffect = () => {
           ease: 'sine.inOut',
         },
         '<'
+      )
+      .fromTo(
+        imageRef.current,
+        {
+          x: 300,
+          opacity: 0,
+        },
+        {
+          opacity: 1,
+          ease: 'sine.inOut',
+          x: 0,
+        },
+        '-=1'
       )
       .fromTo(
         text_2,
@@ -83,17 +96,6 @@ const CurtainEffect = () => {
           rotate: 360,
         },
         '-=.5'
-      )
-      .fromTo(
-        imageRef.current,
-        {
-          opacity: 0,
-          y: 50,
-        },
-        {
-          opacity: 1,
-          y: 0,
-        }
       );
 
     return () => {
@@ -102,9 +104,9 @@ const CurtainEffect = () => {
   }, [lenis]);
 
   return (
-    <div className=" flex flex-col  relative h-[110vh] w-full bg-[#031a1a] ">
+    <div className=" flex flex-col  overflow-hidden relative h-[160vh] w-full bg-[#031a1a] ">
       <svg
-        className="absolute w-full md:h-full bg-transparent"
+        className="absolute w-full h-[40vh] bg-transparent"
         ref={svgRef}
         viewBox="0 0 1000 1000"
         preserveAspectRatio="none"
@@ -117,11 +119,11 @@ const CurtainEffect = () => {
 
       <div
         ref={containerTextRef}
-        className="w-full relative h-[100vh] flex justify-center items-center overflow-hidden"
+        className="w-full  px-5 h-[100vh] flex-col md:flex-row flex justify-center items-center "
       >
-        <div className="w-full h-full relative">
+        <div className="w-full md:w-[70%] h-full relative">
           {/* النص الأول */}
-          <div className="flex items-center gap-5 text-[#7df0e4] text-[3vw] w-full font-extrabold text-nowrap opacity-10 absolute left-[10%] top-40 uppercase">
+          <div className="flex items-center gap-5 text-[#7df0e4] text-[3vw] w-full font-extrabold text-nowrap opacity-[0.5] absolute left-[10%] top-40 uppercase">
             hi there i'm hossam aboud.
           </div>
           <div
@@ -131,7 +133,7 @@ const CurtainEffect = () => {
             hi there i'm hossam aboud.
           </div>
           {/* النص الثاني */}
-          <div className="text-[#e6fcfb] text-[3vw] w-full font-extrabold text-nowrap opacity-10 absolute left-[10%] top-60">
+          <div className="text-[#e6fcfb] text-[3vw] w-full font-extrabold text-nowrap opacity-[0.5] absolute left-[10%] top-60">
             frontend developer • web designer • service provider
           </div>
           <div
@@ -142,8 +144,21 @@ const CurtainEffect = () => {
           </div>
         </div>
 
+        <div
+          ref={imageRef}
+          style={{
+            backgroundImage: `url(/3.jpg)`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+          }}
+          className="z-20 p-2 flex items-center justify-center w-full md:w-[30%]  h-[40vh] md:h-[80vh]"
+        >
+          <img className="w-full h-full" src="/hoss.svg" alt=" logo" />
+        </div>
+
         {/* SVG Circle */}
-        <div className="absolute top-1/2 md:translate-y-[-10%] translate-y-[-30%] left-0 h-[30vh] w-[30vw]  md:h-[20vh]  md:w-[20vw]">
+        <div className="absolute top-1/2 md:translate-y-[-10%] translate-y-[-30%] left-0 h-[20vh] w-[20vw]">
           <svg
             ref={circleRf}
             xmlns="http://www.w3.org/2000/svg"
@@ -319,16 +334,6 @@ const CurtainEffect = () => {
           </svg>
         </div>
       </div>
-      <div
-        ref={imageRef}
-        style={{
-          backgroundImage: `url(/3.jpg)`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
-        className=" w-full rounded-xl relative md:absolute md:right-0 bottom-0  h-[40vh] md:h-[30vh]  md:w-[30vw]  "
-      ></div>
     </div>
   );
 };

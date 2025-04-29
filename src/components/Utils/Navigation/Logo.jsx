@@ -28,24 +28,6 @@ const Logo = () => {
     repeat: 10,
   };
 
-  const AnimationFrom_mobile = {
-    width: '30px',
-    x: 0,
-    height: '30px',
-    backgroundColor: 'rgba(22,196,127,0.4)',
-    scale: 1,
-  };
-
-  const AnimationTo_mobile = {
-    duration: 2,
-    x: 90,
-    width: '25px',
-    height: '25px',
-    ease: 'power1.in',
-    backgroundColor: 'rgba(212,26,17,0.4)',
-    yoyo: true,
-    repeat: 10,
-  };
   return (
     <div
       ref={logoRef}
@@ -64,8 +46,6 @@ const Logo = () => {
         style="absolute left-10 rounded-full"
         AnimationFrom={AnimationFrom}
         AnimationTo={AnimationTo}
-        AnimationFrom_mobile={AnimationFrom_mobile}
-        AnimationTo_mobile={AnimationTo_mobile}
       />
     </div>
   );
