@@ -86,10 +86,10 @@ const CurtainEffect = () => {
   }, []);
 
   return (
-    <div className="relative flex flex-col w-full h-[160vh] bg-[#031a1a] overflow-hidden">
+    <div className="relative flex flex-col w-full h-[130vh] md:h-[160vh] bg-[#031a1a] overflow-hidden">
       <svg
         ref={svgRef}
-        className="absolute w-full h-[40vh] bg-transparent z-10"
+        className="absolute w-full h-[30vh] md:h-[40vh] bg-transparent z-10"
         viewBox="0 0 1000 1000"
         preserveAspectRatio="none"
       >
@@ -98,7 +98,7 @@ const CurtainEffect = () => {
 
       <div
         ref={containerTextRef}
-        className="relative w-full h-[140vh] flex flex-col justify-center items-center px-5 z-20"
+        className="relative w-full h-[100vh] md:h-[140vh] flex flex-col justify-center items-center px-5 z-20"
       >
         <div className="relative w-full h-full">
           <div className="absolute left-[10%] top-40 flex items-center gap-5 text-[5vw] font-extrabold uppercase text-[#7df0e4] opacity-50 whitespace-nowrap">
