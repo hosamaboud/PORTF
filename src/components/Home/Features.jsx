@@ -11,7 +11,7 @@ const Features = () => {
     ctx.current = gsap.context(() => {
       gsap.to(firstRowRef.current, {
         x: '-30%',
-        ease: 'none',
+        ease: 'power1.out',
         scrollTrigger: {
           trigger: containerRef.current,
           start: '50% bottom',
@@ -22,7 +22,7 @@ const Features = () => {
 
       gsap.to(secondRowRef.current, {
         x: '30%',
-        ease: 'none',
+        ease: 'power1.out',
         scrollTrigger: {
           trigger: containerRef.current,
           start: '70% bottom',
