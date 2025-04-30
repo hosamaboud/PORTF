@@ -134,12 +134,12 @@ const CurtainEffect = () => {
             hi there i'm hossam aboud.
           </div>
           {/* النص الثاني */}
-          <div className="text-[#e6fcfb] text-[5vw] w-full font-extrabold text-nowrap opacity-[0.5] absolute left-[10%] top-60">
+          <div className="text-[#e6fcfb] text-[4vw] w-full font-extrabold text-nowrap opacity-[0.5] absolute left-[10%] top-60">
             frontend developer • web designer • service provider
           </div>
           <div
             ref={text_2Ref}
-            className="text-[#e6fcfb] text-[5vw] font-extrabold  overflow-hidden text-nowrap absolute left-[10%] top-60"
+            className="text-[#e6fcfb] text-[4vw] font-extrabold  overflow-hidden text-nowrap absolute left-[10%] top-60"
           >
             frontend developer • web designer • service provider
           </div>
