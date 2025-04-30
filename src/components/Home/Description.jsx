@@ -25,7 +25,7 @@ const Description = () => {
           trigger: designRef.current,
           start: 'top top',
           end: '+=1000',
-          scrub: true,
+          scrub: 2,
           pin: true,
           pinSpacing: true,
         },

@@ -543,7 +543,7 @@ const Skills = () => {
       {/* Left Section */}
       <div
         ref={leftRef}
-        className="z-20 md:px-10 w-full md:w-1/2 h-screen flex flex-col mt-20"
+        className="z-20 px-5  md:px-10 w-full md:w-1/2 h-screen flex flex-col mt-20"
       >
         <div className="flex items-center relative text-[#ebeff6] text-[2rem] md:text-[3rem]">
           <AnimatedText

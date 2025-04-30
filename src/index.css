@@ -14,7 +14,6 @@
     font-family: 'Bebas Neue', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
-  /* تعريف احتياطي للخطوط */
   @font-face {
     font-family: 'Bebas Neue Fallback';
     font-style: normal;
@@ -24,9 +23,6 @@
   }
 }
 
-[data-scroll-container] {
-  will-change: transform;
-}
 
 @layer utilities {
   .cursor-hover-effect {
