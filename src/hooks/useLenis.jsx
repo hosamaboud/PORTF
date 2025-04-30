@@ -1,40 +1,45 @@
 import { useEffect, useRef } from 'react';
 import Lenis from '@studio-freight/lenis';
-import { gsap } from '../gsap-config';
+import { gsap } from 'gsap';
 
 const useLenis = () => {
   const lenisRef = useRef(null);
+  const rafIdRef = useRef(null);
 
   useEffect(() => {
+    // تهيئة Lenis
     const lenis = new Lenis({
-      lerp: 0.1, // زيادة السلاسة
-      wheelMultiplier: 0.7,
-      touchMultiplier: 1.2, // تحسين حساسية اللمس
-      smoothWheel: true,
-      syncTouch: true,
-      syncTouchLerp: 0.1, // سلاسة أكبر لللمس
-      touchInertiaMultiplier: 20, // تقليل القصور الذاتي
+      lerp: 0.1, // قيمة افتراضية لتنعيم الحركة
+      smoothWheel: true, // تمكين تنعيم حركة العجلة
     });
 
-    // التكامل مع GSAP
-    gsap.ticker.add((time) => {
+    // دمج مع GSAP
+    const gsapRaf = (time) => {
       lenis.raf(time * 1000);
-    });
+    };
+
+    gsap.ticker.add(gsapRaf);
     gsap.ticker.lagSmoothing(0);
 
+    // حفظ المرجع
     lenisRef.current = lenis;
 
+    // حلقة التحديث
     const raf = (time) => {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafIdRef.current = requestAnimationFrame(raf);
     };
-    requestAnimationFrame(raf);
 
+    rafIdRef.current = requestAnimationFrame(raf);
+
+    // تنظيف الموارد
     return () => {
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
+
       lenis.destroy();
-      gsap.ticker.remove((time) => {
-        lenis.raf(time * 1000);
-      });
+      gsap.ticker.remove(gsapRaf);
     };
   }, []);
 
