@@ -11,6 +11,7 @@ const Features = () => {
     ctx.current = gsap.context(() => {
       gsap.to(firstRowRef.current, {
         x: '-30%',
+        height: '2px',
         ease: 'power1.out',
         scrollTrigger: {
           trigger: containerRef.current,
@@ -22,6 +23,7 @@ const Features = () => {
 
       gsap.to(secondRowRef.current, {
         x: '30%',
+        height: '10vh',
         ease: 'power1.out',
         scrollTrigger: {
           trigger: containerRef.current,
@@ -43,7 +45,7 @@ const Features = () => {
     >
       <div
         ref={firstRowRef}
-        className="h-[2px] rounded-full flex items-center  justify-around w-[200%] bg-[#7df0e4]"
+        className="h-[10vh] rounded-full flex items-center  justify-around w-[200%] bg-[#34e355]"
       >
         <svg
           role="img"
