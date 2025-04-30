@@ -1,7 +1,6 @@
 import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { MdDoubleArrow } from 'react-icons/md';
-import useLenis from '../../hooks/useLenis';
 
 const ScrollingText = ({
   text,
@@ -13,7 +12,6 @@ const ScrollingText = ({
 }) => {
   const moveText = useRef([]);
   const iconRef = useRef([]);
-  const lenis = useLenis();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -43,7 +41,7 @@ const ScrollingText = ({
     });
 
     return () => ctx.revert();
-  }, [speed, lenis]);
+  }, [speed]);
 
   return (
     <div

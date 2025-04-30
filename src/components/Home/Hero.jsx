@@ -1,10 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from '../../gsap-config';
 import { FaArrowDown } from 'react-icons/fa';
-import useLenis from '../../hooks/useLenis';
 
 const Hero = () => {
-  const lenis = useLenis();
   const containerRef = useRef(null);
   const part_1Ref = useRef(null);
   const rotateDiv = useRef(null);
@@ -12,7 +10,6 @@ const Hero = () => {
   const scrollDownRef = useRef(null);
 
   useEffect(() => {
-    lenis.current?.stop();
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -23,9 +20,6 @@ const Hero = () => {
           pin: true,
           markers: false,
           anticipatePin: 1,
-          onEnter: () => lenis.current?.stop(),
-          onLeaveBack: () => lenis.current?.start(),
-          onRefresh: () => setTimeout(() => lenis.current?.start(), 300),
         },
       });
 

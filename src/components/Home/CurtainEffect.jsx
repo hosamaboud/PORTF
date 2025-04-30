@@ -1,31 +1,26 @@
 import { useEffect, useRef } from 'react';
 import { gsap, ScrollTrigger } from '../../gsap-config';
-import useLenis from '../../hooks/useLenis';
 
 const CurtainEffect = () => {
-  const lenis = useLenis();
   const containerTextRef = useRef(null);
   const text_1Ref = useRef(null);
   const text_2Ref = useRef(null);
   const circleRf = useRef(null);
   const svgRef = useRef(null);
   const imageRef = useRef(null);
-
   useEffect(() => {
     const xValue = window.innerWidth > 600 ? 600 : '300%';
     const containerText = containerTextRef.current;
     const text_1 = text_1Ref.current;
     const text_2 = text_2Ref.current;
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: svgRef.current,
-        start: '10% 90%',
+        start: 'top 80%',
         end: '+=100',
+        scrub: 1.5,
         markers: false,
-        scrub: 2,
-        onEnter: () => lenis?.stop?.(),
-        onLeaveBack: () => lenis?.start?.(),
-        onRefresh: () => setTimeout(() => lenis?.start?.(), 300),
       },
     });
 
@@ -33,21 +28,19 @@ const CurtainEffect = () => {
       attr: {
         d: 'M0 2S175 1 500 1s500 1 500 1V0H0Z',
       },
-      duration: 10,
-      ease: 'power3.out',
+      duration: 3,
+      ease: 'power2.out',
     });
+
     const tl_2 = gsap.timeline({
       scrollTrigger: {
         trigger: containerText,
         start: 'top top',
-        end: '+=300 top',
-        scrub: 4,
+        end: '+=300',
+        scrub: 2,
         pin: true,
         pinSpacing: false,
         markers: false,
-        onEnter: () => lenis?.stop?.(),
-        onLeaveBack: () => lenis?.start?.(),
-        onRefresh: () => setTimeout(() => lenis?.start?.(), 300),
       },
     });
 
@@ -57,30 +50,20 @@ const CurtainEffect = () => {
         { width: '0%' },
         {
           width: '100%',
-          ease: 'sine.inOut',
+          ease: 'power2.inOut',
+          duration: 1.5,
         },
-        '<'
-      )
-      .fromTo(
-        imageRef.current,
-        {
-          x: 300,
-          opacity: 0,
-        },
-        {
-          opacity: 1,
-          ease: 'sine.inOut',
-          x: 0,
-        },
-        '-=1'
+        0
       )
       .fromTo(
         text_2,
         { width: '0%' },
         {
           width: '100%',
-          ease: 'sine.inOut',
-        }
+          ease: 'power2.inOut',
+          duration: 1.5,
+        },
+        '-=1'
       )
       .fromTo(
         circleRf.current,
@@ -94,14 +77,32 @@ const CurtainEffect = () => {
           scale: 1,
           x: xValue,
           rotate: 360,
+          ease: 'expo.out',
+          duration: 2,
         },
-        '-=.5'
+        '-=1.2'
+      )
+      .fromTo(
+        imageRef.current,
+        {
+          x: 150,
+          opacity: 0,
+          scale: 0.95,
+        },
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          ease: 'power2.out',
+          duration: 1.5,
+        },
+        '-=1.5'
       );
 
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
-  }, [lenis]);
+  }, []);
 
   return (
     <div className=" flex flex-col  overflow-hidden relative h-[160vh] w-full bg-[#031a1a] ">
@@ -146,12 +147,6 @@ const CurtainEffect = () => {
 
         <div
           ref={imageRef}
-          style={{
-            backgroundImage: `url(/3.jpg)`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-          }}
           className="z-20 p-2 flex items-center justify-center w-full md:w-[30%]  h-[40vh] md:h-[80vh]"
         >
           <img className="w-full h-full" src="/hoss.svg" alt=" logo" />

@@ -323,20 +323,21 @@ const Skills = () => {
   const textContainerRef = useRef(null);
 
   // Animation configs
-  const AnimationFrom = {
-    x: 0,
-    width: '40px',
-    height: '40px',
-    backgroundColor: '#397adc',
-  };
-
-  const AnimationTo = {
-    x: 115,
-    duration: 2,
-    ease: 'sine.inOut',
-    backgroundColor: '#99b5e0',
-    yoyo: true,
-    repeat: -1,
+  const circleAnimation = {
+    from: {
+      x: 0,
+      width: '40px',
+      height: '40px',
+      backgroundColor: '#397adc',
+    },
+    to: {
+      x: 115,
+      duration: 2.5, // زيادة المدة لسلاسة أكثر
+      ease: 'sine.inOut',
+      backgroundColor: '#99b5e0',
+      yoyo: true,
+      repeat: -1,
+    },
   };
 
   // Skills data
@@ -367,7 +368,8 @@ const Skills = () => {
       title: 'Bootstrap',
       color: '#a6a6d2',
       iconFill: '#563d7c',
-      iconPath:"M11.77 11.24H9.956V8.202h2.152c1.17 0 1.834.522 1.834 1.466 0 1.008-.773 1.572-2.174 1.572zm.324 1.206H9.957v3.348h2.231c1.459 0 2.232-.585 2.232-1.685s-.795-1.663-2.326-1.663zM24 11.39v1.218c-1.128.108-1.817.944-2.226 2.268-.407 1.319-.463 2.937-.42 4.186.045 1.3-.968 2.5-2.337 2.5H4.985c-1.37 0-2.383-1.2-2.337-2.5.043-1.249-.013-2.867-.42-4.186-.41-1.324-1.1-2.16-2.228-2.268V11.39c1.128-.108 1.819-.944 2.227-2.268.408-1.319.464-2.937.42-4.186-.045-1.3.968-2.5 2.338-2.5h14.032c1.37 0 2.382 1.2 2.337 2.5-.043 1.249.013 2.867.42 4.186.409 1.324 1.098 2.16 2.226 2.268zm-7.927 2.817c0-1.354-.953-2.333-2.368-2.488v-.057c1.04-.169 1.856-1.135 1.856-2.213 0-1.537-1.213-2.538-3.062-2.538h-4.16v10.172h4.181c2.218 0 3.553-1.086 3.553-2.876z" ,
+      iconPath:
+        'M11.77 11.24H9.956V8.202h2.152c1.17 0 1.834.522 1.834 1.466 0 1.008-.773 1.572-2.174 1.572zm.324 1.206H9.957v3.348h2.231c1.459 0 2.232-.585 2.232-1.685s-.795-1.663-2.326-1.663zM24 11.39v1.218c-1.128.108-1.817.944-2.226 2.268-.407 1.319-.463 2.937-.42 4.186.045 1.3-.968 2.5-2.337 2.5H4.985c-1.37 0-2.383-1.2-2.337-2.5.043-1.249-.013-2.867-.42-4.186-.41-1.324-1.1-2.16-2.228-2.268V11.39c1.128-.108 1.819-.944 2.227-2.268.408-1.319.464-2.937.42-4.186-.045-1.3.968-2.5 2.338-2.5h14.032c1.37 0 2.382 1.2 2.337 2.5-.043 1.249.013 2.867.42 4.186.409 1.324 1.098 2.16 2.226 2.268zm-7.927 2.817c0-1.354-.953-2.333-2.368-2.488v-.057c1.04-.169 1.856-1.135 1.856-2.213 0-1.537-1.213-2.538-3.062-2.538h-4.16v10.172h4.181c2.218 0 3.553-1.086 3.553-2.876z',
       description: 'Quickly creating responsive websites with Bootstrap.',
     },
     {
@@ -411,87 +413,119 @@ const Skills = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // تحسين توقيتات الحركات
+      gsap.defaults({ duration: 1.2, ease: 'power3.out' });
+
       // Main pinning timeline
       const tl_pin = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top top',
           end: '+=100% 60%',
-          scrub: 1,
+          scrub: 1.5,
           pin: leftRef.current,
           pinSpacing: false,
           anticipatePin: 1,
-          markers: false, // Disable markers in production
+          markers: false,
         },
       });
 
+      // تحريك العنصر الدائري بشكل أكثر سلاسة
       tl_pin.fromTo(
         textContainerRef.current,
         { rotation: 0, x: 0, scale: 1 },
         {
-          rotation: 1000,
-          x: 100,
-          scale: 0.8,
-          duration: 2,
+          rotation: 360,
+          x: 80,
+          scale: 0.85,
+          duration: 2.5,
           ease: 'power2.inOut',
-        }
+        },
+        0
       );
 
       // Text animation
       const tl_text = gsap.timeline({
         scrollTrigger: {
           trigger: rightRef.current,
-          start: 'top 80%',
-          end: '20% 80%',
+          start: 'top 85%',
+          end: '30% 80%',
           scrub: 1,
         },
       });
 
       tl_text.fromTo(
         textRef.current,
-        { opacity: 0, y: 50 },
+        { opacity: 0, y: 30 },
         {
           opacity: 1,
           y: 0,
-          duration: 1.5,
-          ease: 'power3.out',
+          stagger: 0.1,
+          duration: 1.8,
+          ease: 'back.out(1.2)',
         }
       );
 
-      // Skills animations
-      skillsData.forEach((skill) => {
+      // Skills animations - تحسين التسلسل والسلاسة
+      skillsData.forEach((skill, index) => {
         const devRef = skillRefs[`dev_${skill.id}Ref`];
         const subtitleRef = skillRefs[`subtitle_${skill.id}Ref`];
+        const delay = index * 0.15; // تأخير متدرج بين العناصر
 
         const timeline = gsap.timeline({
           scrollTrigger: {
             trigger: devRef.current,
-            start: 'top 70%',
-            end: 'center 50%',
-            scrub: 1,
+            start: 'top 75%',
+            end: '70% 30%',
+            scrub: 1.2,
           },
         });
 
         timeline
           .fromTo(
             devRef.current,
-            { y: 50, opacity: 0 },
-            { y: 0, opacity: 1, ease: 'power2.out', stagger: 0.1 }
+            { y: 40, opacity: 0, scale: 0.95 },
+            {
+              y: 0,
+              opacity: 1,
+              scale: 1,
+              ease: 'power1.out',
+              duration: 1.5,
+            },
+            delay
           )
           .fromTo(
             subtitleRef.current,
-            { y: 50, opacity: 0 },
-            { y: 0, opacity: 1, ease: 'power2.out', stagger: 0.1 }
+            { y: 30, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              stagger: 0.1,
+              ease: 'sine.out',
+              duration: 1.2,
+            },
+            delay + 0.2
           )
           .to(
             devRef.current,
-            { y: -50, opacity: 0, scale: 0.8, ease: 'power2.inOut' },
-            '+=3'
+            {
+              y: -40,
+              opacity: 0,
+              scale: 0.9,
+              ease: 'power1.inOut',
+              duration: 1,
+            },
+            `+=${2.5 - index * 0.1}` // تعديل التوقيت للحفاظ على التسلسل
           )
           .to(
             subtitleRef.current,
-            { y: -50, opacity: 0, scale: 0.8, ease: 'power2.inOut' },
-            '-=.5'
+            {
+              y: -30,
+              opacity: 0,
+              ease: 'power1.inOut',
+              duration: 0.8,
+            },
+            '-=0.6'
           );
       });
     }, containerRef);
@@ -516,9 +550,9 @@ const Skills = () => {
             className="z-20 tracking-[0.8rem] whitespace-nowrap"
           />
           <Circle
-            style={'z-10 absolute bg-[#214d8e] rounded-[50%] h-[7vh] w-[7vh]'}
-            AnimationFrom={AnimationFrom}
-            AnimationTo={AnimationTo}
+            style="z-10 absolute bg-[#214d8e] rounded-[50%] h-[7vh] w-[7vh]"
+            AnimationFrom={circleAnimation.from}
+            AnimationTo={circleAnimation.to}
           />
         </div>
         <svg
@@ -526,7 +560,7 @@ const Skills = () => {
           role="img"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
-          className="h-12 w-12"
+          className="h-12 w-12 mt-4" // إضافة هامش علوي
           fill="#ebeff6"
           aria-label="Skills decoration"
         >
@@ -540,17 +574,20 @@ const Skills = () => {
           <div
             key={skill.id}
             ref={skillRefs[`dev_${skill.id}Ref`]}
-            className="flex flex-col items-center justify-center gap-7 w-full h-[40%] md:h-[20%]"
+            className="flex flex-col items-center justify-center gap-7 w-full h-[40%] md:h-[20%] px-4" // إضافة هامش جانبي
           >
             <div className="flex md:flex-row flex-col gap-4 justify-around w-full items-center">
-              <h1 className="text-3xl" style={{ color: skill.color }}>
+              <h1
+                className="text-3xl transition-colors duration-300"
+                style={{ color: skill.color }}
+              >
                 {skill.title}
               </h1>
               <svg
                 role="img"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-24 h-24"
+                className="w-20 h-20 md:w-24 md:h-24 transition-all duration-300" // حركات انتقالية ناعمة
                 fill={skill.iconFill}
                 aria-label={`${skill.title} icon`}
               >
@@ -561,7 +598,7 @@ const Skills = () => {
             <AnimatedText
               ref={skillRefs[`subtitle_${skill.id}Ref`]}
               text={skill.description}
-              className="text-base md:text-xl md:whitespace-nowrap"
+              className="text-base md:text-lg md:whitespace-nowrap text-center px-4" // تحسين التنسيق
             />
           </div>
         ))}

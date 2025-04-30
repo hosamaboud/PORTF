@@ -1,28 +1,29 @@
 import { useRef, useEffect } from 'react';
-import { gsap } from 'gsap';
-
+import { gsap } from '../../../gsap-config';
 import Logo from './Logo';
 import Menu from './Menu';
-import useLenis from '../../../hooks/useLenis';
 
 const Navbar = () => {
   const navRef = useRef(null);
   const lastScrollY = useRef(0);
-  const lenis = useLenis();
+  const isScrolling = useRef(false);
 
   useEffect(() => {
-    if (!lenis.current) return;
-
     const handleScroll = () => {
-      const currentScrollY = lenis.current.scroll;
+      if (isScrolling.current) return;
+
+      isScrolling.current = true;
+
+      const currentScrollY = window.scrollY;
       const scrollDirection =
         currentScrollY > lastScrollY.current ? 'down' : 'up';
       lastScrollY.current = currentScrollY;
+
       if (navRef.current) {
         if (scrollDirection === 'down' && currentScrollY > 100) {
           gsap.to(navRef.current, {
-            y: '-100px',
-            duration: 0.1,
+            y: '-100%',
+            duration: 0.3,
             ease: 'power1.in',
           });
         } else if (scrollDirection === 'up') {
@@ -33,19 +34,23 @@ const Navbar = () => {
           });
         }
       }
+
+      requestAnimationFrame(() => {
+        isScrolling.current = false;
+      });
     };
 
-    lenis.current.on('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
-      lenis.current.off('scroll', handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
-  }, [lenis]);
+  }, []);
 
   return (
     <nav
       ref={navRef}
-      className=" w-[100%] fixed top-0  z-50 flex items-center justify-between h-[60px] px-4 "
+      className="w-full fixed top-0 z-50 flex items-center justify-between h-[60px] px-4"
     >
       <Logo />
       <Menu />

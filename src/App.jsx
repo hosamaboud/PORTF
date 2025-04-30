@@ -1,6 +1,4 @@
-import useLenis from './hooks/useLenis';
 import { Route, Routes } from 'react-router-dom';
-
 import { useLoading } from './Context/ContextApp';
 import MainLayout from './layout/MainLayout';
 import Cv from './page/Cv';
@@ -11,7 +9,6 @@ import Contact from './page/Contact';
 import Preloader from './page/Preloader';
 
 const App = () => {
-  useLenis();
   const { isLoading, setIsLoading } = useLoading();
 
   return (
