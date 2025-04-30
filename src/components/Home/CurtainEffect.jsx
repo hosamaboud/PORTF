@@ -124,22 +124,22 @@ const CurtainEffect = () => {
       >
         <div className="w-full md:w-[70%] h-full relative">
           {/* النص الأول */}
-          <div className="flex items-center gap-5 text-[#7df0e4] text-[3vw] w-full font-extrabold text-nowrap opacity-[0.5] absolute left-[10%] top-40 uppercase">
+          <div className="flex items-center gap-5 text-[#7df0e4] text-[5vw] w-full font-extrabold text-nowrap opacity-[0.5] absolute left-[10%] top-40 uppercase">
             hi there i'm hossam aboud.
           </div>
           <div
             ref={text_1Ref}
-            className="flex items-center gap-5 text-[#7df0e4] text-[3vw] font-extrabold overflow-hidden text-nowrap absolute left-[10%] top-40 uppercase"
+            className="flex items-center gap-5 text-[#7df0e4] text-[5vw] font-extrabold overflow-hidden text-nowrap absolute left-[10%] top-40 uppercase"
           >
             hi there i'm hossam aboud.
           </div>
           {/* النص الثاني */}
-          <div className="text-[#e6fcfb] text-[3vw] w-full font-extrabold text-nowrap opacity-[0.5] absolute left-[10%] top-60">
+          <div className="text-[#e6fcfb] text-[5vw] w-full font-extrabold text-nowrap opacity-[0.5] absolute left-[10%] top-60">
             frontend developer • web designer • service provider
           </div>
           <div
             ref={text_2Ref}
-            className="text-[#e6fcfb] text-[3vw] font-extrabold  overflow-hidden text-nowrap absolute left-[10%] top-60"
+            className="text-[#e6fcfb] text-[5vw] font-extrabold  overflow-hidden text-nowrap absolute left-[10%] top-60"
           >
             frontend developer • web designer • service provider
           </div>

@@ -340,6 +340,8 @@ const Skills = () => {
     },
   };
 
+  const widthWindow = window.innerWidth;
+
   // Skills data
   const skillsData = [
     {
@@ -448,8 +450,8 @@ const Skills = () => {
       const tl_text = gsap.timeline({
         scrollTrigger: {
           trigger: rightRef.current,
-          start: 'top 85%',
-          end: '30% 80%',
+          start: widthWindow > 768 ? 'top 80%' : '-=30% 90%',
+          end: widthWindow > 768 ? '10% 80%' : '-10% 50%',
           scrub: 1,
         },
       });

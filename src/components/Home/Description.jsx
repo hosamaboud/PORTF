@@ -65,6 +65,7 @@ const Description = () => {
           scrub: 1,
           pin: true,
           pinSpacing: false,
+          markers: true,
         },
       });
 
@@ -140,7 +141,7 @@ const Description = () => {
         </p>
       </div>
 
-      <div className="flex h-[210vh] md:h-[100vh] md:w-[200vw] flex-col md:flex-row overflow-hidden p-2 md:p-10">
+      <div className="flex h-[205vh] md:h-[100vh] md:w-[200vw] flex-col md:flex-row overflow-hidden p-2 md:p-10">
         {renderBox(
           refs.design1,
           'design',
