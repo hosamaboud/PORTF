@@ -45,10 +45,10 @@ const Hero = () => {
         0
       );
       [1, 3, 5].forEach((i) => {
-        tl.to(`.row-${i}`, { y: `-${i * 5}%`, ease: 'none' }, 0);
+        tl.to(`.row-${i}`, { y: `${i * 5}%`, ease: 'none' }, 0);
       });
       [2, 4].forEach((i) => {
-        tl.to(`.row-${i}`, { y: `${i * 5}%`, ease: 'none' }, 0);
+        tl.to(`.row-${i}`, { y: `-${i * 5}%`, ease: 'none' }, 0);
       });
       gsap.to(scrollDownRef.current, {
         opacity: 0.5,

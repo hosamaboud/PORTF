@@ -93,7 +93,7 @@ const CurtainEffect = () => {
         viewBox="0 0 1000 1000"
         preserveAspectRatio="none"
       >
-        <path fill="#e6fcfb" d="M0 502S175 272 500 272s500 230 500 230V0H0Z" />
+        <path fill="#09141b" d="M0 502S175 272 500 272s500 230 500 230V0H0Z" />
       </svg>
 
       <div

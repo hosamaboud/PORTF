@@ -1,4 +1,4 @@
-import gsap from 'gsap';
+import {gsap} from '../../gsap-config';
 import { useRef } from 'react';
 
 const CustomButton = ({ text, overlyText }) => {
@@ -42,7 +42,7 @@ const CustomButton = ({ text, overlyText }) => {
     <button
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="relative overflow-hidden  w-[200px] h-[60px] rounded-md"
+      className="relative overflow-hidden  w-[100px] h-[100px] rounded-full "
     >
       <p
         ref={buttonRef}
@@ -52,7 +52,7 @@ const CustomButton = ({ text, overlyText }) => {
       </p>
       <p
         ref={overlayRef}
-        className="absolute flex items-center justify-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2   w-[10px] overflow-hidden h-[10px] rounded-full  font-dancing text-2xl bg-[#041218] text-[#D44638] "
+        className="absolute flex items-center justify-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2   w-[10px] overflow-hidden h-[10px] rounded-full  font-dancing text-2xl bg-[#D44638] text-[#000 ] "
       >
         {overlyText}
       </p>
