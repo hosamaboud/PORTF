@@ -93,7 +93,7 @@ const CurtainEffect = () => {
         viewBox="0 0 1000 1000"
         preserveAspectRatio="none"
       >
-        <path fill="#09141b" d="M0 502S175 272 500 272s500 230 500 230V0H0Z" />
+        <path fill="#6A9C89" d="M0 502S175 272 500 272s500 230 500 230V0H0Z" />
       </svg>
 
       <div
@@ -127,6 +127,7 @@ const CurtainEffect = () => {
           className="z-30 flex items-center justify-center w-1/2 h-[50vh] p-2"
         >
           <img
+            loading="lazy"
             className="w-full h-full object-contain"
             src="/hoss.svg"
             alt="Hossam Aboud"

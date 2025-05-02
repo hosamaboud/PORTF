@@ -1,4 +1,4 @@
-import gsap from 'gsap';
+import { gsap } from '../../../gsap-config';
 import { useEffect, useRef } from 'react';
 import Circle from '../Circle';
 
@@ -7,9 +7,13 @@ const Logo = () => {
   useEffect(() => {
     const logo = logoRef.current;
     const tl = gsap.timeline();
-    tl.fromTo(logo, { y: -100, duration: 2, ease: 'power1.in' }, {
-      y: 0,
-    });
+    tl.fromTo(
+      logo,
+      { y: -100, duration: 2, ease: 'power1.in' },
+      {
+        y: 0,
+      }
+    );
   }, []);
   const AnimationFrom = {
     x: 0,

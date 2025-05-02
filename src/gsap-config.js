@@ -1,7 +1,10 @@
-import gsap from 'gsap';
+import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
-gsap.config({ nullTargetWarn: false });
+// تسجيل Plugin مرة واحدة فقط
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.config({ nullTargetWarn: false });
+}
 
 export { gsap, ScrollTrigger };

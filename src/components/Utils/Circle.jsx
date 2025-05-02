@@ -1,4 +1,4 @@
-import gsap from 'gsap';
+import {gsap} from '../../gsap-config';
 import { useEffect, useRef } from 'react';
 
 const Circle = ({

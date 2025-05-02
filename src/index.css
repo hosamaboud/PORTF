@@ -3,26 +3,57 @@
 @tailwind utilities;
 
 @layer base {
-  html,
-  body,
-  #root {
-    @apply h-full w-full; /* استخدم h-full بدل h-[100%] */
-  }
-
-  body {
-    @apply text-[#ededf5] bg-[#0C1318];
-    font-family: 'Bebas Neue', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* تعريفات الخطوط */
+  @font-face {
+    font-family: 'Bebas Neue';
+    src: url('/fonts/BebasNeue-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
   }
 
   @font-face {
-    font-family: 'Bebas Neue Fallback';
-    font-style: normal;
+    font-family: 'Dancing Script';
+    src: url('/fonts/DancingScript-Regular.woff2') format('woff2');
     font-weight: 400;
-    src: local('Arial Narrow Bold'), local('Arial Narrow');
-    size-adjust: 105%;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Dancing Script';
+    src: url('/fonts/DancingScript-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Dancing Script';
+    src: url('/fonts/DancingScript-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Dancing Script';
+    src: url('/fonts/DancingScript-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  html,
+  body,
+  #root {
+    @apply h-full w-full;
+  }
+
+  body {
+    @apply text-[#ededf5] bg-[#0C1318] font-bebas;
   }
 }
-
 
 @layer utilities {
   .cursor-hover-effect {
@@ -38,17 +69,6 @@
     clip-path: polygon(0 35%, 100% 0, 65% 100%, 56% 43%);
     will-change: transform, opacity;
   }
-
-  /* تحسينات لتحميل الخط */
-  .font-loading {
-    font-family: 'Bebas Neue Fallback', sans-serif;
-    letter-spacing: 0.02em;
-  }
-
-  .font-loaded {
-    font-family: 'Bebas Neue', sans-serif;
-  }
-  /* تحسينات الأداء للعناصر المتحركة */
   .text_1,
   .text_2,
   .circleRf {

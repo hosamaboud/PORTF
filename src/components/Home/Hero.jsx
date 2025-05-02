@@ -104,8 +104,9 @@ const Hero = () => {
                     className="w-full h-full overflow-hidden rounded-lg"
                   >
                     <img
-                      className="w-full h-full object-cover object-center"
-                      src={`/${(i - 1) * 4 + j + 1}.jpg`}
+                      src={`/${(i - 1) * 4 + j + 1}.webp`}
+                      loading="lazy"
+                      className="h-[50vh] w-[40vw] object-cover object-center"
                       alt={`Gallery ${i}-${j}`}
                     />
                   </div>

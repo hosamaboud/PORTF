@@ -2,26 +2,26 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/logo.jpeg" />
+    <link rel="icon" type="image/webp" href="/logo.webp" sizes="32x32" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link 
-      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@400..700&display=swap"
-      rel="stylesheet"
-      media="print" 
-      onload="this.media='all'"
+    <!-- Preload للخطوط -->
+    <link
+      rel="preload"
+      href="/fonts/BebasNeue-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
-    <noscript>
-      <link 
-        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@400..700&display=swap" 
-        rel="stylesheet"
-      />
-    </noscript>
-
+    <link
+      rel="preload"
+      href="/fonts/DancingScript-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <meta
       name="description"
-      content="Hossam Aboud - Frontend developer portfolio built with React, Tailwind CSS, and GSAP animations. Check out my projects and skills."
+      content="Hossam Aboud - Frontend developer portfolio"
     />
     <title>Hossam</title>
   </head>

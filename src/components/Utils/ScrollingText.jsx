@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import gsap from 'gsap';
+import { gsap } from '../../gsap-config';
 import { MdDoubleArrow } from 'react-icons/md';
 
 const ScrollingText = ({

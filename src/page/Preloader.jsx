@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
+import { gsap } from '../gsap-config';
 import AnimatedText from '../components/Utils/AnimatedText';
 
 const Preloader = ({ setIsLoading }) => {
@@ -86,6 +86,7 @@ const Preloader = ({ setIsLoading }) => {
           className="text-[20vw] opacity-100 font-bebas font-extrabold text-black"
         />
         <img
+          loading="lazy"
           ref={imgRef}
           className="w-[10vw] h-[10vw]"
           src="/logo.svg"

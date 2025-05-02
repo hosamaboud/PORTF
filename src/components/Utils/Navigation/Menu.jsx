@@ -1,4 +1,4 @@
-import gsap from 'gsap';
+import { gsap } from '../../../gsap-config';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import nameSvg from '../../../assets/name.png';
@@ -173,7 +173,9 @@ const Menu = () => {
           }`}
         >
           <p
-            className={`${menu ? 'hidden' : 'block text-[#16C47F] font-semibold'}`}
+            className={`${
+              menu ? 'hidden' : 'block text-[#16C47F] font-semibold'
+            }`}
           >
             Menu
           </p>

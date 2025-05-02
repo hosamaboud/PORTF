@@ -1,5 +1,5 @@
 import { useRef, useCallback, useState, useEffect } from 'react';
-import gsap from 'gsap';
+import { gsap } from '../../gsap-config';
 
 const CustomCursor = ({ enabled = true }) => {
   const cursorRef = useRef(null);
@@ -14,13 +14,20 @@ const CustomCursor = ({ enabled = true }) => {
   // التحقق من الموبايل
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      const isMobile =
+        window.innerWidth < 768 ||
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        );
+      setIsMobile(isMobile);
     };
 
+    // التحقق فوراً ثم عند تغيير الحجم
     checkMobile();
-    window.addEventListener('resize', checkMobile);
+    const resizeListener = () => checkMobile();
+    window.addEventListener('resize', resizeListener);
 
-    return () => window.removeEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', resizeListener);
   }, []);
 
   const CURSOR_TYPES = {

@@ -4,10 +4,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        bebas: ['Bebas Neue'],
-        dancing: ['Dancing Script'],
+        bebas: ['Bebas Neue', 'sans-serif'],
+        dancing: ['Dancing Script', 'cursive'],
       },
-     
     },
   },
   plugins: [],

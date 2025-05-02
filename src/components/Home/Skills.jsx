@@ -264,7 +264,7 @@ const Skills = () => {
           <div
             key={skill.id}
             ref={skillRefs[`dev_${skill.id}Ref`]}
-            className="flex flex-col items-center justify-center gap-7 w-full h-[40%] md:h-[20%] px-4" // إضافة هامش جانبي
+            className="flex flex-col items-center justify-center gap-7 w-full h-[40%] md:h-[20%] px-4"
           >
             <div className="flex md:flex-row flex-col gap-4 justify-around w-full items-center">
               <h1
