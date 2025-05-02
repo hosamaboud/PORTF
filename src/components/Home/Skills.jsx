@@ -138,8 +138,8 @@ const Skills = () => {
       const tl_text = gsap.timeline({
         scrollTrigger: {
           trigger: rightRef.current,
-          start: widthWindow > 768 ? 'top 80%' : '0% 90%',
-          end: widthWindow > 768 ? '10% 80%' : '10% 90%',
+          start: widthWindow > 768 ? 'top 80%' : '-20% 90%',
+          end: widthWindow > 768 ? '10% 80%' : '0% 90%',
           scrub: 1,
           markers: true,
         },
@@ -227,7 +227,7 @@ const Skills = () => {
   return (
     <div
       ref={containerRef}
-      className="overflow-hidden h-[210vh] md:h-[280vh] w-full bg-[#090f18] flex flex-col md:flex-row"
+      className="overflow-hidden h-[200vh] md:h-[280vh] w-full bg-[#090f18] flex flex-col md:flex-row"
     >
       {/* Left Section */}
       <div
@@ -260,7 +260,7 @@ const Skills = () => {
       </div>
 
       {/* Right Section - Skills List */}
-      <div ref={rightRef} className="flex flex-col w-full md:w-1/2 h-full">
+      <div ref={rightRef} className="flex flex-col gap-5 w-full md:w-1/2 h-full">
         {skillsData.map((skill) => (
           <div
             key={skill.id}
