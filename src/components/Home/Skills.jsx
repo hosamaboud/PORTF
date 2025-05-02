@@ -138,9 +138,10 @@ const Skills = () => {
       const tl_text = gsap.timeline({
         scrollTrigger: {
           trigger: rightRef.current,
-          start: widthWindow > 768 ? 'top 80%' : '-=20% 90%',
-          end: widthWindow > 768 ? '10% 80%' : '0% 90%',
+          start: widthWindow > 768 ? 'top 80%' : '0% 90%',
+          end: widthWindow > 768 ? '10% 80%' : '10% 90%',
           scrub: 1,
+          markers: true,
         },
       });
 
@@ -156,11 +157,11 @@ const Skills = () => {
         }
       );
 
-      // Skills animations 
+      // Skills animations
       skillsData.forEach((skill, index) => {
         const devRef = skillRefs[`dev_${skill.id}Ref`];
         const subtitleRef = skillRefs[`subtitle_${skill.id}Ref`];
-        const delay = index * 0.15; 
+        const delay = index * 0.15;
 
         const timeline = gsap.timeline({
           scrollTrigger: {
@@ -205,7 +206,7 @@ const Skills = () => {
               ease: 'power1.inOut',
               duration: 1,
             },
-            `+=${2.5 - index * 0.1}` 
+            `+=${2.5 - index * 0.1}`
           )
           .to(
             subtitleRef.current,
@@ -226,7 +227,7 @@ const Skills = () => {
   return (
     <div
       ref={containerRef}
-      className="overflow-hidden h-[280vh] w-full bg-[#090f18] flex flex-col md:flex-row"
+      className="overflow-hidden h-[210vh] md:h-[280vh] w-full bg-[#090f18] flex flex-col md:flex-row"
     >
       {/* Left Section */}
       <div
@@ -250,7 +251,7 @@ const Skills = () => {
           role="img"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
-          className="h-12 w-12 md:mt-4" 
+          className="h-12 w-12 md:mt-4"
           fill="#ebeff6"
           aria-label="Skills decoration"
         >
@@ -259,7 +260,7 @@ const Skills = () => {
       </div>
 
       {/* Right Section - Skills List */}
-      <div ref={rightRef} className="flex flex-col w-full md:w-1/2 md:h-full">
+      <div ref={rightRef} className="flex flex-col w-full md:w-1/2 h-full">
         {skillsData.map((skill) => (
           <div
             key={skill.id}
