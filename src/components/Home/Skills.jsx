@@ -21,15 +21,13 @@ const Skills = () => {
     },
     to: {
       x: 115,
-      duration: 2.5, // زيادة المدة لسلاسة أكثر
+      duration: 2.5,
       ease: 'sine.inOut',
       backgroundColor: '#99b5e0',
       yoyo: true,
       repeat: -1,
     },
   };
-
-  const widthWindow = window.innerWidth;
 
   // Skills data
   const skillsData = [
@@ -96,152 +94,167 @@ const Skills = () => {
   ];
 
   // Create refs dynamically for each skill
-  const skillRefs = skillsData.reduce((acc, skill) => {
-    acc[`dev_${skill.id}Ref`] = useRef(null);
-    acc[`subtitle_${skill.id}Ref`] = useRef(null);
-    return acc;
-  }, {});
+  const skillRefs = useRef(
+    skillsData.reduce((acc, skill) => {
+      acc[`dev_${skill.id}Ref`] = useRef(null);
+      acc[`subtitle_${skill.id}Ref`] = useRef(null);
+      return acc;
+    }, {})
+  ).current;
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // تحسين توقيتات الحركات
-      gsap.defaults({ duration: 1.2, ease: 'power3.out' });
+    const setupAnimations = () => {
+      const mm = gsap.matchMedia();
+      const isMobile = window.innerWidth <= 767;
 
-      // Main pinning timeline
-      const tl_pin = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top top',
-          end: '+=100% 60%',
-          scrub: 1.5,
-          pin: leftRef.current,
-          pinSpacing: false,
-          anticipatePin: 1,
-        },
-      });
-
-      // تحريك العنصر الدائري بشكل أكثر سلاسة
-      tl_pin.fromTo(
-        textContainerRef.current,
-        { rotation: 0, x: 0, scale: 1 },
-        {
-          rotation: 360,
-          x: 80,
-          scale: 0.85,
-          duration: 2.5,
-          ease: 'power2.inOut',
-        },
-        0
-      );
-
-      // Text animation
-      const tl_text = gsap.timeline({
-        scrollTrigger: {
-          trigger: rightRef.current,
-          start: widthWindow > 768 ? 'top 80%' : '-20% 90%',
-          end: widthWindow > 768 ? '10% 80%' : '0% 90%',
-          scrub: 1,
-          markers: true,
-        },
-      });
-
-      tl_text.fromTo(
-        textRef.current,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          stagger: 0.1,
-          duration: 1.8,
-          ease: 'back.out(1.2)',
-        }
-      );
-
-      // Skills animations
-      skillsData.forEach((skill, index) => {
-        const devRef = skillRefs[`dev_${skill.id}Ref`];
-        const subtitleRef = skillRefs[`subtitle_${skill.id}Ref`];
-        const delay = index * 0.15;
-
-        const timeline = gsap.timeline({
+      // Main pinning animation
+      const setupPinAnimation = () => {
+        return gsap.timeline({
           scrollTrigger: {
-            trigger: devRef.current,
-            start: widthWindow > 768 ? 'top 75%' : '0% 80%',
-            end: widthWindow > 768 ? '70% 30%' : '80% 40%',
-            scrub: 1.2,
+            trigger: containerRef.current,
+            start: 'top top',
+            end: '+=100% 60%',
+            scrub: 1.5,
+            pin: leftRef.current,
+            pinSpacing: false,
+            anticipatePin: 1,
           },
         });
+      };
 
-        timeline
-          .fromTo(
-            devRef.current,
-            { y: 40, opacity: 0, scale: 0.95 },
-            {
-              y: 0,
-              opacity: 1,
-              scale: 1,
-              ease: 'power1.out',
-              duration: 1.5,
+      // Text animation
+      const setupTextAnimation = () => {
+        return gsap.fromTo(
+          textRef.current,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.8,
+            ease: 'back.out(1.2)',
+            scrollTrigger: {
+              trigger: rightRef.current,
+              start: isMobile ? '-20% 90%' : 'top 80%',
+              end: isMobile ? '0% 90%' : '10% 80%',
+              scrub: 1,
             },
-            delay
-          )
-          .fromTo(
-            subtitleRef.current,
-            { y: 30, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              stagger: 0.1,
-              ease: 'sine.out',
-              duration: 1.2,
-            },
-            delay + 0.2
-          )
-          .to(
-            devRef.current,
-            {
-              y: -40,
-              opacity: 0,
-              scale: 0.9,
-              ease: 'power1.inOut',
-              duration: 1,
-            },
-            `+=${2.5 - index * 0.1}`
-          )
-          .to(
-            subtitleRef.current,
-            {
-              y: -30,
-              opacity: 0,
-              ease: 'power1.inOut',
-              duration: 0.8,
-            },
-            '-=0.6'
-          );
-      });
-    }, containerRef);
+          }
+        );
+      };
 
+      // Skill item animations
+      const setupSkillAnimations = () => {
+        skillsData.forEach((skill, index) => {
+          const devRef = skillRefs[`dev_${skill.id}Ref`];
+          const subtitleRef = skillRefs[`subtitle_${skill.id}Ref`];
+          const delay = index * 0.15;
+
+          const timeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: devRef.current,
+              start: isMobile ? '0% 80%' : 'top 75%',
+              end: isMobile ? '80% 40%' : '70% 30%',
+              scrub: 1.2,
+            },
+          });
+
+          timeline
+            .fromTo(
+              devRef.current,
+              { y: 40, opacity: 0, scale: 0.95 },
+              {
+                y: 0,
+                opacity: 1,
+                scale: 1,
+                ease: 'power1.out',
+                duration: 1.5,
+              },
+              delay
+            )
+            .fromTo(
+              subtitleRef.current,
+              { y: 30, opacity: 0 },
+              {
+                y: 0,
+                opacity: 1,
+                ease: 'sine.out',
+                duration: 1.2,
+              },
+              delay + 0.2
+            )
+            .to(
+              devRef.current,
+              {
+                y: -40,
+                opacity: 0,
+                scale: 0.9,
+                ease: 'power1.inOut',
+                duration: 1,
+              },
+              `+=${2.5 - index * 0.1}`
+            )
+            .to(
+              subtitleRef.current,
+              {
+                y: -30,
+                opacity: 0,
+                ease: 'power1.inOut',
+                duration: 0.8,
+              },
+              '-=0.6'
+            );
+        });
+      };
+
+      // Container rotation animation
+      const setupContainerAnimation = (timeline) => {
+        timeline.fromTo(
+          textContainerRef.current,
+          { rotation: 0, x: 0, scale: 1 },
+          {
+            rotation: 360,
+            x: 80,
+            scale: 0.85,
+            duration: 2.5,
+            ease: 'power2.inOut',
+          },
+          0
+        );
+      };
+
+      // Initialize all animations
+      gsap.defaults({ duration: 1.2, ease: 'power3.out' });
+
+      const pinTimeline = setupPinAnimation();
+      setupContainerAnimation(pinTimeline);
+      setupTextAnimation();
+      setupSkillAnimations();
+
+      return () => mm.revert();
+    };
+
+    const ctx = gsap.context(setupAnimations, containerRef);
     return () => ctx.revert();
-  }, []);
+  }, [skillsData, skillRefs]);
 
   return (
     <div
       ref={containerRef}
-      className="overflow-hidden h-[200vh] md:h-[280vh] w-full bg-[#090f18] flex flex-col md:flex-row"
+      className="overflow-hidden h-[230vh] md:h-[280vh] w-full bg-[#090f18] flex flex-col md:flex-row"
     >
       {/* Left Section */}
       <div
         ref={leftRef}
-        className="z-20 px-5  md:px-10 w-full md:w-1/2 h-screen flex flex-col mt-10 md:mt-20"
+        className="z-20 px-5 md:px-10 w-full md:w-1/2 h-screen flex flex-col mt-10 md:mt-20"
       >
         <div className="flex items-center relative text-[#ebeff6] text-[2rem] md:text-[3rem]">
           <AnimatedText
             ref={textRef}
             text="Skills"
-            className="z-20 tracking-[0.8rem] whitespace-nowrap"
+            className="z-20 tracking-[0.8rem] whitespace-nowrap will-change-transform"
           />
           <Circle
-            style="z-10 absolute bg-[#214d8e] rounded-[50%] h-[7vh] w-[7vh]"
+            style="z-10 absolute bg-[#214d8e] rounded-[50%] h-[7vh] w-[7vh] will-change-transform"
             AnimationFrom={circleAnimation.from}
             AnimationTo={circleAnimation.to}
           />
@@ -251,7 +264,7 @@ const Skills = () => {
           role="img"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
-          className="h-12 w-12 md:mt-4"
+          className="h-12 w-12 md:mt-4 will-change-transform"
           fill="#ebeff6"
           aria-label="Skills decoration"
         >
@@ -260,16 +273,19 @@ const Skills = () => {
       </div>
 
       {/* Right Section - Skills List */}
-      <div ref={rightRef} className="flex flex-col gap-5 w-full md:w-1/2 h-full">
+      <div
+        ref={rightRef}
+        className="flex flex-col gap-5 w-full md:w-1/2 h-full will-change-transform"
+      >
         {skillsData.map((skill) => (
           <div
             key={skill.id}
             ref={skillRefs[`dev_${skill.id}Ref`]}
-            className="flex flex-col items-center justify-center gap-7 w-full h-[40%] md:h-[20%] px-4"
+            className="flex flex-col items-center justify-center gap-7 w-full h-[40%] md:h-[20%] px-4 will-change-transform"
           >
             <div className="flex md:flex-row flex-col gap-4 justify-around w-full items-center">
               <h1
-                className="text-3xl transition-colors duration-300"
+                className="text-3xl transition-colors duration-300 will-change-transform"
                 style={{ color: skill.color }}
               >
                 {skill.title}
@@ -278,7 +294,7 @@ const Skills = () => {
                 role="img"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-20 h-20 md:w-24 md:h-24 transition-all duration-300" // حركات انتقالية ناعمة
+                className="w-20 h-20 md:w-24 md:h-24 transition-all duration-300 will-change-transform"
                 fill={skill.iconFill}
                 aria-label={`${skill.title} icon`}
               >
@@ -289,7 +305,7 @@ const Skills = () => {
             <AnimatedText
               ref={skillRefs[`subtitle_${skill.id}Ref`]}
               text={skill.description}
-              className="text-base md:text-lg md:whitespace-nowrap text-center px-4" // تحسين التنسيق
+              className="text-base md:text-lg md:whitespace-nowrap text-center px-4 will-change-transform"
             />
           </div>
         ))}
