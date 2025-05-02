@@ -131,7 +131,8 @@ const Skills = () => {
             opacity: 1,
             y: 0,
             duration: 1.8,
-            ease: 'back.out(1.2)',
+            stagger: 0.2,
+            ease: 'power4.out',
             scrollTrigger: {
               trigger: rightRef.current,
               start: isMobile ? '-20% 90%' : 'top 80%',
@@ -178,6 +179,7 @@ const Skills = () => {
                 y: 0,
                 opacity: 1,
                 ease: 'sine.out',
+                stagger: 0.1,
                 duration: 1.2,
               },
               delay + 0.2
@@ -284,12 +286,12 @@ const Skills = () => {
             className="flex flex-col items-center justify-center gap-7 w-full h-[40%] md:h-[20%] px-4 will-change-transform"
           >
             <div className="flex md:flex-row flex-col gap-4 justify-around w-full items-center">
-              <h1
+              <p
                 className="text-3xl transition-colors duration-300 will-change-transform"
                 style={{ color: skill.color }}
               >
                 {skill.title}
-              </h1>
+              </p>
               <svg
                 role="img"
                 viewBox="0 0 24 24"
