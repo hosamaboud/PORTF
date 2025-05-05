@@ -13,34 +13,10 @@
   }
 
   @font-face {
-    font-family: 'Dancing Script';
-    src: url('/fonts/DancingScript-Regular.woff2') format('woff2');
-    font-weight: 400;
+    font-family: 'ThunderExtBd';
+    src: url('/fonts/Thunder-ExtraBoldLC.woff2') format('woff2');
     font-style: normal;
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: 'Dancing Script';
-    src: url('/fonts/DancingScript-Medium.woff2') format('woff2');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: 'Dancing Script';
-    src: url('/fonts/DancingScript-SemiBold.woff2') format('woff2');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: 'Dancing Script';
-    src: url('/fonts/DancingScript-Bold.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
+    font-weight: normal;
     font-display: swap;
   }
 
@@ -52,6 +28,7 @@
 
   body {
     @apply text-[#ededf5] bg-[#0C1318] font-bebas;
+    cursor: none;
   }
 }
 

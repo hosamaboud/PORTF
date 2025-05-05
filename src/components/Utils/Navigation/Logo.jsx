@@ -39,7 +39,7 @@ const Logo = () => {
     >
       <div className=" w-[50px] h-[50px] rotate-[10deg]">
         <div className="w-[20px] h-[20px] logo-clip-path-2 absolute bg-[#16C47F] bottom-2 left-3 z-10 -rotate-[190deg]"></div>
-        <div className="top-2 w-[20px] h-[20px] left-2 logo-clip-path-2 bg-[#e85c0d] absolute z-10 rotate-[-10deg]"></div>
+        <div className="top-2 w-[20px] h-[20px] left-2 logo-clip-path-2 bg-[rgb(232,92,13)] absolute z-10 rotate-[-10deg]"></div>
       </div>
       {/* Header text */}
       <div className="flex z-10 font-bebas items-center  justify-center">

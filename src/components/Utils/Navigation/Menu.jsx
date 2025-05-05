@@ -221,7 +221,7 @@ const Menu = () => {
                 ref={(el) => (iconRef.current[index] = el)}
                 className="text-3xl text-[#e85c0d] opacity-0"
               />
-              <p className="transition-all duration-300 ease text-[#16C47F] font-light font-dancing text-3xl group-hover:text-[#e85c0d]">
+              <p className="transition-all duration-300 ease text-[#16C47F]  font-thunder text-[4vw] group-hover:text-[#e85c0d]">
                 {item.name}
               </p>
             </Link>

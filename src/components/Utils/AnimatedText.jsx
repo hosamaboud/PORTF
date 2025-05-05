@@ -1,3 +1,4 @@
+
 import { forwardRef, useRef, useEffect } from 'react';
 
 const AnimatedText = forwardRef(({ text, className }, ref) => {
@@ -7,15 +8,15 @@ const AnimatedText = forwardRef(({ text, className }, ref) => {
     if (ref) {
       ref.current = charsRef.current.filter(Boolean);
     }
-  }, [ref]);
+  }, [ref, text]);
 
   return (
     <h1 className={`overflow-hidden ${className}`}>
       {text.split('').map((char, i) => (
         <span
-          key={i}
+          key={`${text}-${i}-${char}`}
           ref={(el) => (charsRef.current[i] = el)}
-          className="inline-block opacity-0"
+          className="inline-block"
         >
           {char === ' ' ? '\u00A0' : char}
         </span>

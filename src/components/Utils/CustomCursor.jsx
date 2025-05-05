@@ -1,249 +1,203 @@
-import { useRef, useCallback, useState, useEffect } from 'react';
-import { gsap } from '../../gsap-config';
+import React, { useState, useEffect, useRef } from 'react';
+import gsap from 'gsap';
 
-const CustomCursor = ({ enabled = true }) => {
+const CustomCursor = () => {
   const cursorRef = useRef(null);
-  const followerRef = useRef(null);
-  const hoverItems = useRef([]);
-  const requestRef = useRef();
-  const pos = useRef({ x: 0, y: 0 });
-  const mouse = useRef({ x: 0, y: 0 });
+  const cursorInnerRef = useRef(null);
+  const cursorOuterRef = useRef(null);
+  const cursorLabelRef = useRef(null);
+
+  const [isHovering, setIsHovering] = useState(false);
+  const [hoverType, setHoverType] = useState(null);
   const [isActive, setIsActive] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
-  // التحقق من الموبايل
   useEffect(() => {
-    const checkMobile = () => {
-      const isMobile =
-        window.innerWidth < 768 ||
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
-        );
-      setIsMobile(isMobile);
-    };
-
-    // التحقق فوراً ثم عند تغيير الحجم
-    checkMobile();
-    const resizeListener = () => checkMobile();
-    window.addEventListener('resize', resizeListener);
-
-    return () => window.removeEventListener('resize', resizeListener);
-  }, []);
-
-  const CURSOR_TYPES = {
-    DEFAULT: 'default',
-    HOVER: 'hover',
-    TEXT: 'text',
-    SPECIAL: 'special',
-  };
-
-  const updateHoverItems = useCallback(() => {
-    hoverItems.current.forEach((item) => {
-      item.removeEventListener('mouseenter', handleHover);
-      item.removeEventListener('mouseleave', handleHoverOut);
+    // Set initial position to center
+    gsap.set(cursorRef.current, {
+      x: window.innerWidth / 2,
+      y: window.innerHeight / 2,
     });
 
-    hoverItems.current = [
-      ...document.querySelectorAll(
-        'a, button, input, textarea, [data-cursor], [data-cursor-text]'
-      ),
-    ];
-
-    hoverItems.current.forEach((item) => {
-      item.addEventListener('mouseenter', handleHover);
-      item.addEventListener('mouseleave', handleHoverOut);
-    });
-  }, []);
-
-  const handleHover = useCallback(
-    (e) => {
-      if (!followerRef.current || !enabled) return;
-
-      const target = e.currentTarget;
-      let cursorType = CURSOR_TYPES.DEFAULT;
-      let cursorProps = {};
-
-      if (target.hasAttribute('data-cursor-text')) {
-        cursorType = CURSOR_TYPES.TEXT;
-        cursorProps = {
-          content: target.dataset.cursorText,
-          scale: 1.8,
-          bgColor: '#FF3E4D',
-          width: 'auto',
-          height: 'auto',
-          padding: '0.5rem 1rem',
-          borderRadius: '4px',
-          fontSize: '0.875rem',
-          mixBlendMode: 'normal',
-        };
-      } else if (target.closest('a, button')) {
-        cursorType = CURSOR_TYPES.HOVER;
-        cursorProps = {
-          scale: 1.6,
-          bgColor: '#3B82F6',
-          mixBlendMode: 'difference',
-        };
-      } else if (target.closest('[data-cursor]')) {
-        cursorType = CURSOR_TYPES.SPECIAL;
-        cursorProps = {
-          scale: 2.2,
-          bgColor: target.dataset.cursorColor || '#8B5CF6',
-          mixBlendMode: 'normal',
-        };
-      }
-
-      animateCursor(cursorType, cursorProps);
-    },
-    [enabled]
-  );
-
-  const handleHoverOut = useCallback(() => {
-    if (!followerRef.current || !enabled) return;
-    animateCursor(CURSOR_TYPES.DEFAULT);
-  }, [enabled]);
-
-  const handleClick = useCallback(() => {
-    if (!followerRef.current || !enabled) return;
-
-    gsap.to(followerRef.current, {
-      scale: 0.7,
-      duration: 0.15,
-      yoyo: true,
-      repeat: 1,
-      ease: 'power3.out',
-    });
-  }, [enabled]);
-
-  const updateCursorPosition = useCallback(
-    (e) => {
-      mouse.current = {
+    const moveCursor = (e) => {
+      gsap.to(cursorRef.current, {
         x: e.clientX,
         y: e.clientY,
-      };
-
-      if (!isActive) setIsActive(true);
-    },
-    [isActive]
-  );
-
-  const animateCursor = (type, props = {}) => {
-    const defaults = {
-      content: '',
-      scale: 1,
-      bgColor: '#D44638',
-      width: '2rem',
-      height: '2rem',
-      padding: '0',
-      borderRadius: '50%',
-      fontSize: '0.8rem',
-      mixBlendMode: 'difference',
+        duration: 0.7,
+        ease: 'power3.out',
+      });
     };
 
-    const settings = { ...defaults, ...props };
+    const handleMouseDown = () => {
+      setIsActive(true);
+      gsap.to(cursorOuterRef.current, {
+        scale: 0.7,
+        duration: 0.2,
+      });
+    };
 
-    gsap.to(followerRef.current, {
-      scale: settings.scale,
-      backgroundColor: settings.bgColor,
-      width: settings.width,
-      height: settings.height,
-      padding: settings.padding,
-      borderRadius: settings.borderRadius,
-      mixBlendMode: settings.mixBlendMode,
-      duration: 0.3,
-      ease: 'power3.out',
-    });
+    const handleMouseUp = () => {
+      setIsActive(false);
+      gsap.to(cursorOuterRef.current, {
+        scale: 1,
+        duration: 0.3,
+      });
+    };
 
-    if (followerRef.current) {
-      followerRef.current.textContent = settings.content;
-      followerRef.current.style.fontSize = settings.fontSize;
+    // Add hover detection
+    const addHoverEffects = () => {
+      const hoverElements = document.querySelectorAll(
+        'a, button, input, textarea, img, [data-cursor-hover]'
+      );
+
+      hoverElements.forEach((el) => {
+        el.addEventListener('mouseenter', (e) => {
+          setIsHovering(true);
+          if (el.tagName === 'A') setHoverType('link');
+          else if (el.tagName === 'BUTTON') setHoverType('button');
+          else if (el.tagName === 'IMG') setHoverType('image');
+          else if (['INPUT', 'TEXTAREA'].includes(el.tagName))
+            setHoverType('input');
+          else if (el.hasAttribute('data-cursor-hover'))
+            setHoverType(el.getAttribute('data-cursor-hover'));
+
+          // Animate on hover
+          gsap.to(cursorInnerRef.current, {
+            scale: 0,
+            duration: 0.3,
+          });
+
+          gsap.to(cursorOuterRef.current, {
+            scale: getHoverScale(),
+            backgroundColor: getHoverColor(),
+            duration: 0.3,
+          });
+        });
+
+        el.addEventListener('mouseleave', () => {
+          setIsHovering(false);
+          setHoverType(null);
+
+          // Animate back to normal
+          gsap.to(cursorInnerRef.current, {
+            scale: 1,
+            duration: 0.3,
+          });
+
+          gsap.to(cursorOuterRef.current, {
+            scale: 1,
+            backgroundColor: 'transparent',
+            duration: 0.3,
+          });
+
+          gsap.to(cursorLabelRef.current, {
+            opacity: 0,
+            y: 10,
+            duration: 0.2,
+          });
+        });
+      });
+    };
+
+    document.addEventListener('mousemove', moveCursor);
+    document.addEventListener('mousedown', handleMouseDown);
+    document.addEventListener('mouseup', handleMouseUp);
+
+    addHoverEffects();
+
+    return () => {
+      document.removeEventListener('mousemove', moveCursor);
+      document.removeEventListener('mousedown', handleMouseDown);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, []);
+
+  // Update label when hover type changes
+  useEffect(() => {
+    if (isHovering && hoverType) {
+      gsap.fromTo(
+        cursorLabelRef.current,
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.3 }
+      );
+    }
+  }, [hoverType, isHovering]);
+
+  const getHoverScale = () => {
+    switch (hoverType) {
+      case 'link':
+        return 1.5;
+      case 'button':
+        return 1.8;
+      case 'image':
+        return 2;
+      case 'input':
+        return 0.5;
+      default:
+        return 1.5;
     }
   };
 
-  const animate = useCallback(() => {
-    if (!enabled) return;
+  const getHoverColor = () => {
+    switch (hoverType) {
+      case 'link':
+        return 'rgba(100, 200, 255, 0.3)';
+      case 'button':
+        return 'rgba(255, 150, 50, 0.3)';
+      case 'image':
+        return 'rgba(150, 255, 100, 0.3)';
+      case 'input':
+        return 'rgba(255, 255, 255, 0.5)';
+      default:
+        return 'rgba(200, 200, 200, 0.3)';
+    }
+  };
 
-    gsap.set(cursorRef.current, {
-      x: mouse.current.x,
-      y: mouse.current.y,
-    });
-
-    pos.current.x = gsap.utils.interpolate(pos.current.x, mouse.current.x, 0.2);
-    pos.current.y = gsap.utils.interpolate(pos.current.y, mouse.current.y, 0.2);
-
-    gsap.set(followerRef.current, {
-      x: pos.current.x,
-      y: pos.current.y,
-    });
-
-    requestRef.current = requestAnimationFrame(animate);
-  }, [enabled]);
-
-  useEffect(() => {
-    if (!enabled || isMobile) return;
-
-    document.body.style.cursor = 'none';
-
-    gsap.set([cursorRef.current, followerRef.current], {
-      xPercent: -50,
-      yPercent: -50,
-      opacity: 0,
-    });
-
-    gsap.to([cursorRef.current, followerRef.current], {
-      opacity: 1,
-      duration: 0.4,
-      ease: 'power3.out',
-    });
-
-    requestRef.current = requestAnimationFrame(animate);
-
-    window.addEventListener('mousemove', updateCursorPosition);
-    window.addEventListener('click', handleClick);
-
-    const observer = new MutationObserver(updateHoverItems);
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['data-cursor', 'data-cursor-text'],
-    });
-
-    updateHoverItems();
-
-    return () => {
-      cancelAnimationFrame(requestRef.current);
-      window.removeEventListener('mousemove', updateCursorPosition);
-      window.removeEventListener('click', handleClick);
-      observer.disconnect();
-      document.body.style.cursor = '';
-
-      hoverItems.current.forEach((item) => {
-        item.removeEventListener('mouseenter', handleHover);
-        item.removeEventListener('mouseleave', handleHoverOut);
-      });
-    };
-  }, [
-    animate,
-    enabled,
-    isMobile,
-    handleClick,
-    updateCursorPosition,
-    updateHoverItems,
-  ]);
-
-  if (!enabled || isMobile) return null;
+  const getLabelText = () => {
+    switch (hoverType) {
+      case 'link':
+        return 'Visit';
+      case 'button':
+        return 'Click';
+      case 'image':
+        return 'View';
+      case 'input':
+        return 'Type';
+      default:
+        return hoverType || '';
+    }
+  };
 
   return (
-    <>
+    <div
+      ref={cursorRef}
+      className="fixed pointer-events-none z-50 mix-blend-difference transform -translate-x-1/2 -translate-y-1/2"
+    >
+      {/* Inner dot */}
       <div
-        ref={cursorRef}
-        className="fixed w-3 h-3 rounded-full bg-white pointer-events-none z-[9999] mix-blend-difference transform -translate-x-1/2 -translate-y-1/2 will-change-transform backdrop-filter backdrop-invert"
+        ref={cursorInnerRef}
+        className={`absolute w-2 h-2 rounded-full bg-white transform -translate-x-1/2 -translate-y-1/2 ${
+          isActive ? 'scale-75' : 'scale-100'
+        } transition-transform duration-200`}
       />
+
+      {/* Outer circle */}
       <div
-        ref={followerRef}
-        className="fixed w-8 h-8 rounded-full bg-[#D44638] pointer-events-none z-[9998] opacity-90 mix-blend-difference flex items-center justify-center text-xs text-white font-medium transform -translate-x-1/2 -translate-y-1/2 will-change-transform transition-all duration-300 ease-out"
+        ref={cursorOuterRef}
+        className={`absolute w-6 h-6 border-2 border-white rounded-full transform -translate-x-1/2 -translate-y-1/2 ${
+          isActive ? 'scale-75 border-red-500' : 'scale-100'
+        } transition-all duration-300`}
       />
-    </>
+
+      {/* Label */}
+      {isHovering && (
+        <div
+          ref={cursorLabelRef}
+          className="absolute top-8 left-8 bg-white text-black px-2 py-1 rounded text-xs font-medium whitespace-nowrap opacity-0"
+        >
+          {getLabelText()}
+        </div>
+      )}
+    </div>
   );
 };
 
