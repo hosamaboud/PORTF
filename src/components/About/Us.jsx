@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import AnimatedText from '../Utils/AnimatedText';
 import { gsap } from '../../gsap-config';
 
@@ -10,20 +10,21 @@ const Us = () => {
   const images = useRef([]);
   const [textColor, setTextColor] = useState('text-white');
 
-  const imageTexts = [
-    'Our Team',
-    'Our Vision',
-    'Our Mission',
-    'Our Values',
-    'Our Work',
-    'Contact Us',
-  ];
+  const imageTexts = useMemo(
+    () => [
+      'Our Team',
+      'Our Vision',
+      'Our Mission',
+      'Our Values',
+      'Our Work',
+      'Contact Us',
+    ],
+    []
+  );
 
-  useEffect(() => {
+  const animationTimeline = useCallback(() => {
     if (textRef.current.length > 0) {
-      const tl = gsap.timeline();
-
-      tl.fromTo(
+      return gsap.timeline().fromTo(
         textRef.current,
         {
           scale: 0.5,
@@ -43,31 +44,38 @@ const Us = () => {
         }
       );
     }
-  }, [currentText]);
+  }, []);
 
-  const handleContainerEnter = () => {
+  useEffect(() => {
+    const tl = animationTimeline();
+    return () => tl && tl.kill();
+  }, [currentText, animationTimeline]);
+
+  const handleContainerEnter = useCallback(() => {
     setTextColor('text-red-500');
-  };
+  }, []);
 
-  const handleContainerLeave = () => {
+  const handleContainerLeave = useCallback(() => {
     setTextColor('text-white');
     setCurrentText('About Us');
-  };
+  }, []);
 
-  const hoverImage = (index) => {
-    // تحريك الصورة بشكل جمالي عند المرور
-    gsap.to(images.current[index], {
-      height: window.innerWidth > 500 ? '100px' : '80px',
-      width: window.innerWidth > 500 ? '100px' : '80px',
-      opacity: 1,
-      duration: 0.3,
-      ease: 'power2.out',
-    });
+  const hoverImage = useCallback(
+    (index) => {
+      gsap.to(images.current[index], {
+        height: window.innerWidth > 500 ? '100px' : '80px',
+        width: window.innerWidth > 500 ? '100px' : '80px',
+        opacity: 1,
+        duration: 0.3,
+        ease: 'power2.out',
+      });
 
-    setCurrentText(imageTexts[index]);
-  };
+      setCurrentText(imageTexts[index]);
+    },
+    [imageTexts]
+  );
 
-  const leaveImage = (index) => {
+  const leaveImage = useCallback((index) => {
     gsap.to(images.current[index], {
       height: window.innerWidth > 500 ? '80px' : '60px',
       width: window.innerWidth > 500 ? '80px' : '60px',
@@ -75,7 +83,26 @@ const Us = () => {
       duration: 0.3,
       ease: 'power2.out',
     });
-  };
+  }, []);
+
+  const renderImages = useMemo(
+    () =>
+      [1, 2, 3, 4, 5, 6].map((imgNum, index) => (
+        <img
+          key={imgNum}
+          ref={(el) => (images.current[index] = el)}
+          className="object-cover object-center h-[60px] w-[60px] md:h-[80px] md:w-[80px] rounded-lg opacity-[0.5] shadow-neon"
+          src={`/${imgNum}.webp`}
+          alt={imageTexts[index]}
+          loading="lazy"
+          width={window.innerWidth > 500 ? 80 : 60}
+          height={window.innerWidth > 500 ? 80 : 60}
+          onMouseEnter={() => hoverImage(index)}
+          onMouseLeave={() => leaveImage(index)}
+        />
+      )),
+    [imageTexts, hoverImage, leaveImage]
+  );
 
   return (
     <>
@@ -89,17 +116,7 @@ const Us = () => {
           onMouseEnter={handleContainerEnter}
           onMouseLeave={handleContainerLeave}
         >
-          {[1, 2, 3, 4, 5, 6].map((imgNum, index) => (
-            <img
-              key={imgNum}
-              ref={(el) => (images.current[index] = el)}
-              className="object-cover object-center h-[60px] w-[60px] md:h-[80px] md:w-[80px] rounded-lg opacity-[0.5] shadow-neon "
-              src={`/${imgNum}.webp`}
-              alt=""
-              onMouseEnter={() => hoverImage(index)}
-              onMouseLeave={() => leaveImage(index)}
-            />
-          ))}
+          {renderImages}
         </div>
         <div className="h-[50vh] w-full flex items-center justify-center relative">
           <AnimatedText

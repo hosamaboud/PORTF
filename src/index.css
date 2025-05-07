@@ -19,6 +19,13 @@
     font-weight: normal;
     font-display: swap;
   }
+  @font-face {
+    font-family: 'ThunderLight';
+    src: url('/fonts/Thunder-LightLC.woff2') format('woff2');
+    font-style: normal;
+    font-weight: normal;
+    font-display: swap;
+  }
 
   html,
   body,
@@ -27,8 +34,7 @@
   }
 
   body {
-    @apply text-[#ededf5] bg-[#0C1318] font-bebas;
-    cursor: none;
+    @apply text-[#ededf5] bg-black font-bebas;
   }
 }
 

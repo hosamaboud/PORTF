@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { gsap, ScrollTrigger } from '../../gsap-config';
+import { gsap } from '../../gsap-config';
+import AnimatedText from '../Utils/AnimatedText';
 
 const CurtainEffect = () => {
   // Refs
@@ -7,49 +8,109 @@ const CurtainEffect = () => {
   const textContainerRef = useRef(null);
   const text1Ref = useRef(null);
   const text2Ref = useRef(null);
-  const circleRef = useRef(null);
+  const textRef = useRef(null);
+  const prevTextRef = useRef(null);
   const waveSvgRef = useRef(null);
   const imageRef = useRef(null);
+  const liveRef = useRef(null);
+
+  const onEnter = () => {
+    const tl = gsap.timeline();
+    tl.to(textRef.current, {
+      y: '-100%',
+      stagger: 0.01,
+      duration: 0.8,
+      ease: 'expo.out',
+    }).to(
+      prevTextRef.current,
+      {
+        y: '-100%',
+        stagger: 0.01,
+        duration: 0.8,
+        ease: 'expo.out',
+      },
+      '<'
+    );
+  };
+
+  const onLeave = () => {
+    const tl = gsap.timeline();
+    tl.to(prevTextRef.current, {
+      y: '0%',
+      stagger: 0.01,
+      duration: 0.8,
+      ease: 'expo.out',
+    }).to(
+      textRef.current,
+      {
+        y: '0%',
+        stagger: 0.01,
+        duration: 0.8,
+        ease: 'expo.out',
+      },
+      '<'
+    );
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Set GSAP defaults
+      // Set GSAP defaults for all animations
       gsap.defaults({
         ease: 'power2.inOut',
         duration: 2,
       });
+      // Animate the live dot with scale and opacity for a pulsing effect
+      gsap.fromTo(
+        liveRef.current,
+        {
+          opacity: 0,
+          scale: 0.5,
+          delay: 0.5,
+        },
+        {
+          opacity: 1,
+          scale: 1.1,
+          delay: 0.5,
+          ease: 'expo.out',
+          yoyo: true,
+          repeat: -1,
+        }
+      );
 
-      // Wave animation
+      // Wave animation on scroll
       const setupWaveAnimation = () => {
         gsap.to(waveSvgRef.current.querySelector('path'), {
           attr: { d: 'M0 2S175 1 500 1s500 1 500 1V0H0Z' },
           scrollTrigger: {
             trigger: waveSvgRef.current,
-            start: 'top 80%',
+            start: 'top 30%',
             end: '+=200',
             scrub: 1.5,
           },
         });
       };
 
-      // Main animations for desktop
+      // Main animations for desktop screens
       const setupDesktopAnimations = () => {
+        // Timeline for text and image reveal, pinned while scrolling
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: textContainerRef.current,
-            start: 'top top',
-            end: '+=200',
+            start: '10% top',
+            end: '+=150',
+            pin: true,
             scrub: 2,
           },
         });
 
-        // Text reveal animations
+        // Animate first text line width from 0% to 100%
         tl.fromTo(
           text1Ref.current,
           { width: '0%' },
           { width: '100%', ease: 'none' },
           0.2
         );
+        // Animate second text line width from 0% to 100%
         tl.fromTo(
           text2Ref.current,
           { width: '0%' },
@@ -57,36 +118,23 @@ const CurtainEffect = () => {
           0.4
         );
 
-        // Circle animation
-        tl.fromTo(
-          circleRef.current,
-          {
-            opacity: 0,
-            scale: 0.7,
-            x: -100,
-            rotation: 0,
-          },
-          {
-            opacity: 1,
-            scale: 1,
-            x: window.innerWidth > 600 ? 900 : '300%',
-            rotation: 360,
-            duration: 3.2,
-          },
-          0.6
-        );
-
-        // Image animation
-        tl.fromTo(
+        // Animate image entrance from left to center
+        gsap.fromTo(
           imageRef.current,
           {
-            x: 120,
+            x: '100%',
             opacity: 0,
-            scale: 0.95,
+            scale: 0.5,
           },
           {
+            scrollTrigger: {
+              trigger: imageRef.current,
+              start: 'top 55%',
+              end: '+=40',
+              scrub: 1.5,
+            },
             opacity: 1,
-            x: -60,
+            x: '-20%',
             scale: 1,
             duration: 2.6,
           },
@@ -94,60 +142,42 @@ const CurtainEffect = () => {
         );
       };
 
-      // Main animations for mobile
+      // Main animations for mobile screens
       const setupMobileAnimations = () => {
+        // Timeline for text and image reveal, triggered lower on the screen
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: textContainerRef.current,
             start: 'top 60%',
             end: '+=500',
             scrub: 2,
-            pinSpacing: false,
           },
         });
 
-        // Reuse same animations but with different timing/positioning
+        // Animate first text line width from 0% to 100%
         tl.fromTo(
           text1Ref.current,
           { width: '0%' },
           { width: '100%', ease: 'none' },
           0.2
         );
+        // Animate second text line width from 0% to 100%
         tl.fromTo(
           text2Ref.current,
           { width: '0%' },
           { width: '100%', ease: 'none' },
           0.4
         );
-
-        tl.fromTo(
-          circleRef.current,
-          {
-            opacity: 0,
-            scale: 0.7,
-            x: -100,
-            rotation: 0,
-          },
-          {
-            opacity: 1,
-            scale: 1,
-            x: '300%',
-            rotation: 360,
-            duration: 3.2,
-          },
-          0.6
-        );
-
+        // Animate image entrance from right to center
         tl.fromTo(
           imageRef.current,
           {
-            x: 120,
-            opacity: 0,
+            x: '100%',
             scale: 0.95,
           },
           {
             opacity: 1,
-            x: -60,
+            x: 0,
             scale: 1,
             duration: 2.6,
           },
@@ -164,13 +194,15 @@ const CurtainEffect = () => {
       mm.add('(max-width: 767px)', setupMobileAnimations);
     }, containerRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+    };
   }, []);
 
   return (
     <div
       ref={containerRef}
-      className="relative flex flex-col w-full h-[110vh] md:h-[160vh] bg-[#031a1a] overflow-hidden"
+      className="relative  flex flex-col w-full  min-h-[110vh] md:min-h-[140vh] bg-black overflow-hidden"
     >
       {/* Wave SVG */}
       <svg
@@ -181,7 +213,7 @@ const CurtainEffect = () => {
         aria-hidden="true"
       >
         <path
-          fill="#6A9C89"
+          fill="#B43F3F"
           d="M0 502S175 272 500 272s500 230 500 230V0H0Z"
           className="will-change-d"
         />
@@ -190,30 +222,30 @@ const CurtainEffect = () => {
       {/* Main content */}
       <div
         ref={textContainerRef}
-        className="relative w-full h-[100vh] md:h-[140vh] flex flex-col justify-center items-center px-5 z-20"
+        className="relative  w-ful h-[160vh] md:h-[110vh] flex flex-col justify-around items-center px-10 z-20"
       >
         {/* Text elements */}
-        <div className="relative w-full h-[70vh] md:h-full">
+        <div className="relative w-full h-[80vh] ">
           {/* Background text */}
           <div
             aria-hidden="true"
-            className="absolute left-[10%] top-40 flex items-center gap-5 text-[5vw] font-extrabold uppercase text-[#7df0e4] opacity-50 whitespace-nowrap will-change-transform"
+            className="absolute uppercase left-[5%] top-[30%] flex items-center gap-5 text-[10vw] font-thunder text-[#D62E49] opacity-50 whitespace-nowrap will-change-transform"
           >
-            hi there i'm hossam aboud.
+            i'm hossam aboud
           </div>
 
           {/* Animated text 1 */}
           <div
             ref={text1Ref}
-            className="absolute left-[10%] top-40 flex items-center gap-5 text-[5vw] font-extrabold uppercase text-[#7df0e4] overflow-hidden whitespace-nowrap will-change-transform"
+            className="absolute uppercase left-[5%] top-[30%] flex items-center gap-5 text-[10vw] font-thunder  text-[#D62E49] overflow-hidden whitespace-nowrap will-change-transform"
           >
-            hi there i'm hossam aboud.
+            i'm hossam aboud
           </div>
 
           {/* Background text 2 */}
           <div
             aria-hidden="true"
-            className="absolute left-[10%] top-60 text-[4vw] font-extrabold text-[#e6fcfb] opacity-50 whitespace-nowrap will-change-transform"
+            className="absolute left-[5%] top-[70%] text-[5vw] font-thunder uppercase text-[#e6fcfb] opacity-50 whitespace-nowrap will-change-transform"
           >
             frontend developer • web designer • service provider
           </div>
@@ -221,80 +253,53 @@ const CurtainEffect = () => {
           {/* Animated text 2 */}
           <div
             ref={text2Ref}
-            className="absolute left-[10%] top-60 text-[4vw] font-extrabold text-[#e6fcfb] overflow-hidden whitespace-nowrap will-change-transform"
+            className="absolute left-[5%] top-[70%] text-[5vw] font-thunder uppercase text-[#e6fcfb] overflow-hidden whitespace-nowrap will-change-transform"
           >
             frontend developer • web designer • service provider
           </div>
         </div>
 
-        {/* Profile image */}
-        <div
-          ref={imageRef}
-          className="z-30 flex items-center justify-center w-1/2 h-[50vh] p-2 will-change-transform"
-        >
+        {/* part 2 */}
+        <div className="relative rounded-[10%] shadow-[0_0_20px_0_rgba(214,46,73,0.5)]  z-30 flex items-center justify-center h-[80vh]  w-[90%]  gap-4 will-change-transform">
           <img
+            ref={imageRef}
             loading="lazy"
-            className="w-full h-full object-contain will-change-transform"
-            src="/hoss.svg"
-            alt="Hossam Aboud - Frontend Developer"
+            className=" w-[300px] shadow-[0_0_20px_0_rgba(214,46,73,0.5)] rounded-full h-[300px] object-cover object-center will-change-transform"
+            src="/23.webp"
+            alt="Hossam Aboud - Frontend Developer, Web Designer, Service Provider"
+            aria-label="Hossam Aboud profile illustration"
           />
-        </div>
-
-        {/* Animated circles */}
-        <div className="absolute top-1/2 left-0 w-[20vw] h-[20vh] md:translate-y-[-10%] translate-y-[-30%] will-change-transform">
-          <svg
-            ref={circleRef}
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 800 800"
-            className="w-full h-full"
-            aria-hidden="true"
-          >
-            <defs>
-              <linearGradient
-                id="ggglitch-grad"
-                x1="50%"
-                y1="0%"
-                x2="50%"
-                y2="100%"
-              >
-                <stop offset="45%" stopColor="hsl(184, 74%, 44%)" />
-                <stop offset="100%" stopColor="hsl(332, 87%, 70%)" />
-              </linearGradient>
-              <clipPath id="clipPath1">
-                <rect width="133.33" height="800" x="0" y="0" />
-                <rect width="133.33" height="800" x="266.67" y="0" />
-                <rect width="133.33" height="800" x="533.33" y="0" />
-                <rect width="133.33" height="800" x="800" y="0" />
-              </clipPath>
-              <clipPath id="clipPath2">
-                <rect width="133.33" height="800" x="133.33" y="0" />
-                <rect width="133.33" height="800" x="400" y="0" />
-                <rect width="133.33" height="800" x="666.67" y="0" />
-                <rect width="133.33" height="800" x="933.33" y="0" />
-              </clipPath>
-            </defs>
-            <g strokeWidth="68" stroke="url(#ggglitch-grad)" fill="none">
-              {[364, 270.5, 177, 83.5].map((radius, i) => (
-                <circle
-                  key={`circle-1-${i}`}
-                  r={radius}
-                  cx="400"
-                  cy="400"
-                  opacity="0.35"
-                  clipPath='url("#clipPath1")'
-                />
-              ))}
-              {[366, 272.5, 179, 85.5].map((radius, i) => (
-                <circle
-                  key={`circle-2-${i}`}
-                  r={radius}
-                  cx="400"
-                  cy="400"
-                  clipPath='url("#clipPath2")'
-                />
-              ))}
-            </g>
-          </svg>
+          <div className="absolute right-[5%] bottom-0  w-[250px] h-[10vh]  gap-4 flex items-center justify-center ">
+            <div
+              className="h-[20px] w-[20px] border-[1px] border-[#ff0000] rounded-[50%] flex  items-center justify-center"
+              aria-label="Live status indicator"
+            >
+              <div
+                ref={liveRef}
+                className="bg-[#ff0000] h-[8px] w-[8px] rounded-full transition-scale duration-300"
+                aria-label="Live dot animation"
+              ></div>
+            </div>
+            <div
+              className="flex relative overflow-hidden flex-col h-[5vh] w-[100%]"
+              onMouseEnter={onEnter}
+              onMouseLeave={onLeave}
+              onTouchStart={onEnter}
+              onTouchEnd={onLeave}
+              aria-label="Animated name and job title"
+            >
+              <AnimatedText
+                ref={textRef}
+                text="Hossam Aboud"
+                className="absolute flex top-0 left-0 uppercase text-primaryLight text-4xl font-thunder "
+              />
+              <AnimatedText
+                ref={prevTextRef}
+                text="hossam aboud"
+                className="absolute flex top-0 left-0 uppercase text-text text-4xl font-thunder translate-y-full "
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>

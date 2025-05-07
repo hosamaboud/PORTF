@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from '../../gsap-config';
-import { FaArrowDown } from 'react-icons/fa';
+import { ArrowDown } from 'lucide-react';
+import { useInView } from 'react-intersection-observer';
 
 const Hero = () => {
   const containerRef = useRef(null);
@@ -8,6 +9,15 @@ const Hero = () => {
   const rotateDiv = useRef(null);
   const textRef = useRef(null);
   const scrollDownRef = useRef(null);
+
+  const LazyImage = ({ src, alt, ...props }) => {
+    const { ref, inView } = useInView({ triggerOnce: true, rootMargin: '200px' });
+    return (
+      <div ref={ref} className='h-full w-full'>
+        {inView ? <img src={src} alt={alt} {...props} /> : <div style={{height: '200px', background: '#222'}} />}
+        </div>
+    );
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -47,10 +57,10 @@ const Hero = () => {
           0
         );
         [1, 3, 5].forEach((i) => {
-          tl.to(`.row-${i}`, { y: `${i * 5}%`, ease: 'none' }, 0);
+          tl.to(`.row-${i}`, { y: `-${i * 3}%`, ease: 'none' }, 0);
         });
         [2, 4].forEach((i) => {
-          tl.to(`.row-${i}`, { y: `-${i * 5}%`, ease: 'none' }, 0);
+          tl.to(`.row-${i}`, { y: `${i * 3}%`, ease: 'none' }, 0);
         });
       });
 
@@ -121,7 +131,7 @@ const Hero = () => {
       >
         <div className="flex flex-col  items-center fixed bottom-20 right-5  md:right-10 z-10">
           <p className=" text-sm ">scroll down</p>
-          <FaArrowDown ref={scrollDownRef} className="  text-sm" />
+          <ArrowDown  ref={scrollDownRef} className="  text-sm" />
         </div>
 
         <div
@@ -142,18 +152,17 @@ const Hero = () => {
               <div
                 key={i}
                 className={`row-${i} w-[calc(200vw/5)] h-[100vh] md:h-[200vh] flex flex-col gap-[3vh]`}
-                style={{ marginTop: `-${i * 5}%` }}
+            
               >
                 {Array.from({ length: 4 }).map((_, j) => (
                   <div
                     key={j}
                     className="w-full h-full overflow-hidden rounded-lg"
                   >
-                    <img
-                      src={`/${(i - 1) * 4 + j + 1}.webp`}
-                      loading="lazy"
-                      className="h-[50vh]  w-[40vw] object-cover object-center"
-                      alt={`Gallery ${i}-${j}`}
+                    <LazyImage
+                    className= "h-full w-full object-cover"
+                    src={`/${(i - 1) * 4 + j + 1}.webp`}
+                    alt={`Gallery ${i}-${j}`}
                     />
                   </div>
                 ))}

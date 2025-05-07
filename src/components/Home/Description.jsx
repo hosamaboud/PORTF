@@ -1,17 +1,14 @@
 import { gsap } from '../../gsap-config';
 import { useEffect, useRef } from 'react';
-import { SiAntdesign } from 'react-icons/si';
-import { MdOutlineCodeOff } from 'react-icons/md';
-import { AiFillOpenAI } from 'react-icons/ai';
-import { FaExpandArrowsAlt } from 'react-icons/fa';
 import CustomButton from '../Utils/CustomButton';
+import { BrainCircuit, CodeXml, Expand, LayoutDashboard } from 'lucide-react';
 
 // كائن يحتوي على بيانات كل صندوق لتجنب التكرار
 const BOX_DATA = [
   {
     id: 'design1',
     title: 'design',
-    Icon: SiAntdesign,
+    Icon: LayoutDashboard ,
     iconColor: '#981943',
     shortText: 'des',
     fullText:
@@ -20,7 +17,7 @@ const BOX_DATA = [
   {
     id: 'design2',
     title: 'develop',
-    Icon: MdOutlineCodeOff,
+    Icon: CodeXml,
     iconColor: '#D44638',
     shortText: 'dev',
     fullText: 'User-friendly back offices to make content management a breeze.',
@@ -28,7 +25,7 @@ const BOX_DATA = [
   {
     id: 'design3',
     title: 'engage',
-    Icon: AiFillOpenAI,
+    Icon: BrainCircuit ,
     iconColor: '#D44638',
     shortText: 'eng',
     fullText: 'Engaging user experiences that turn visitors into customers.',
@@ -36,7 +33,7 @@ const BOX_DATA = [
   {
     id: 'design4',
     title: 'expand',
-    Icon: FaExpandArrowsAlt,
+    Icon: Expand,
     iconColor: '#D44638',
     shortText: 'exp',
     fullText: 'Scalable websites designed to expand with your business.',
@@ -146,7 +143,7 @@ const Description = () => {
           >
             {title}
           </p>
-          <Icon className="text-4xl md:text-7xl" style={{ color: iconColor }} />
+          <Icon className="w-20 h-20" style={{ color: iconColor }} />
         </div>
         <div className="flex items-center justify-center px-4">
           <h1 className="uppercase text-[#7ec2ea] font-extrabold text-4xl md:text-7xl">
@@ -190,7 +187,7 @@ const Description = () => {
               Code. Create. Conquer. With us, no regrets.
             </p>
             <div className="flex ml-auto w-[40%] items-center mt-10 ">
-              <CustomButton text="Contact" overlyText="Contact" />
+              <CustomButton text="Contact" />
             </div>
           </div>
         </div>

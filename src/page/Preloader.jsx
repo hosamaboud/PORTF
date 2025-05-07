@@ -24,10 +24,10 @@ const Preloader = ({ setIsLoading }) => {
     )
       .fromTo(
         imgRef.current,
-        { opacity: 0, x:'200%', rotate:360 },
+        { opacity: 0, x: '200%', rotate: 360 },
         {
           opacity: 1,
-          rotate:0,
+          rotate: 0,
           x: 0,
           duration: 0.6,
           ease: 'power1',
@@ -77,13 +77,13 @@ const Preloader = ({ setIsLoading }) => {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden bg-[#96f686]"
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden bg-[#9CEE69]"
     >
       <div className="absolute top-1/2 -translate-y-1/2 left-1 flex items-center gap-3 ">
         <AnimatedText
           text="hossam"
           ref={textRef_2}
-          className="text-[20vw] opacity-100 font-bebas font-extrabold text-black"
+          className="overflow-hidden text-[20vw] opacity-100 font-thunder uppercase text-black"
         />
         <img
           loading="lazy"
@@ -93,15 +93,15 @@ const Preloader = ({ setIsLoading }) => {
           alt="logo"
         />
       </div>
-      <div className="absolute left-[40%] bottom-20">
+      <div className=" absolute left-[40%] bottom-20">
         <AnimatedText
           text="Loading..."
           ref={textRef}
-          className=" text-black font-bebas text-4xl md:text-5xl"
+          className="overflow-hidden text-black font-thunderLight uppercase text-4xl md:text-5xl"
         />
 
         <div className="relative ">
-          <div className="absolute left-[40%] h-[3px] opacity-10 w-[100%] bg-black " />
+          <div className="absolute left-[40%] h-[3px] opacity-10 w-[100%] bg-[#2A2929] " />
           <div
             ref={lineRef}
             className="absolute left-[40%] h-[3px] w-0 bg-black "

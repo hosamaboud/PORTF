@@ -242,7 +242,7 @@ const Skills = () => {
   return (
     <div
       ref={containerRef}
-      className="overflow-hidden h-[230vh] md:h-[280vh] w-full bg-[#090f18] flex flex-col md:flex-row"
+      className="overflow-hidden h-[230vh] md:h-[280vh]  bg-black w-full flex flex-col md:flex-row"
     >
       {/* Left Section */}
       <div

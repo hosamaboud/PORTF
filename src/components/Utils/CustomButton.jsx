@@ -1,62 +1,92 @@
-import {gsap} from '../../gsap-config';
+import { Link } from 'react-router-dom';
+import { gsap } from '../../gsap-config';
 import { useRef } from 'react';
 
-const CustomButton = ({ text, overlyText }) => {
+const CustomButton = ({ text, link }) => {
   const buttonRef = useRef(null);
   const overlayRef = useRef(null);
+  const textRef = useRef(null);
 
   const handleMouseEnter = () => {
-    gsap.set(buttonRef.current, {
-      zIndex: 0,
-    });
-
-    gsap.fromTo(
+    const tl = gsap.timeline();
+    tl.fromTo(
       overlayRef.current,
-      { y: 50 },
+      {
+        y: 100,
+        scale: 0.1,
+      },
       {
         y: 0,
+        scale: 1,
+        opacity: 1,
+        ease: 'expoScale',
+        duration: 1,
         width: '210px',
         height: '210px',
-        zIndex: 1,
-        ease: 'power3',
-        duration: 0.8,
-      }
+      },
+      '<'
+    ).to(
+      textRef.current,
+      {
+        scale: 0.85,
+        color: 'black',
+        ease: 'expoScale',
+      },
+      '<'
     );
   };
-  const handleMouseLeave = () => {
-    gsap.to(overlayRef.current, {
-      width: '10px',
-      height: '10px',
-      y: 50,
-      zIndex: 0,
-      duration: 0.5,
-      ease: 'power3',
-    });
 
-    gsap.to(buttonRef.current, {
-      zIndex: 1,
-      duration: 1,
-    });
+  const handleMouseLeave = () => {
+    const tl = gsap.timeline();
+    tl.to(
+      overlayRef.current,
+      {
+        width: '10px',
+        height: '10px',
+        y: 100,
+        scale: 0.1,
+        opacity: 0,
+        duration: 1,
+        ease: 'expoScale',
+      },
+      0
+    ).to(
+      textRef.current,
+      {
+        scale: 1,
+        color: 'white',
+        duration: 1,
+        ease: 'expoScale',
+      },
+      0
+    );
   };
+
   return (
-    <button
+    <Link
+      to={link}
+      type="button"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="relative overflow-hidden  w-[100px] h-[100px] rounded-full "
+      className="relative w-[100px] h-[100px] rounded-full overflow-hidden"
     >
-      <p
+      <div
         ref={buttonRef}
-        className="absolute z-10 inset-0 flex items-center justify-center font-dancing text-2xl bg-[#e2f3fa] text-[#041218]  "
+        className="absolute inset-0 flex items-center justify-center bg-[#2A2929]"
       >
-        {text}
-      </p>
-      <p
+        <p
+          ref={textRef}
+          className="z-10 text-2xl text-[#FFEEEE] transition-scale duration-100"
+        >
+          {text}
+        </p>
+      </div>
+      <div
         ref={overlayRef}
-        className="absolute flex items-center justify-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2   w-[10px] overflow-hidden h-[10px] rounded-full  font-dancing text-2xl bg-[#D44638] text-[#000 ] "
-      >
-        {overlyText}
-      </p>
-    </button>
+        className="absolute opacity-0 z-[5] flex items-center justify-center bottom-0 left-1/2 -translate-x-1/2 w-[10px] h-[10px] rounded-full bg-[#F93434]"
+      ></div>
+    </Link>
   );
 };
+
 export default CustomButton;

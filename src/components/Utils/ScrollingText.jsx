@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { gsap } from '../../gsap-config';
-import { MdDoubleArrow } from 'react-icons/md';
+import { ArrowBigRightDash } from 'lucide-react';
 
 const ScrollingText = ({
   text,
@@ -57,7 +57,7 @@ const ScrollingText = ({
             className="moveText flex items-center shrink-0 gap-[3vw]"
           >
             <h1
-              className="uppercase flex shrink-0 items-center justify-center px-[1.5vw] font-roboto text-[5.5vw] md:text-[2.5vw] font-semibold"
+              className="uppercase flex shrink-0 items-center justify-center px-[1.5vw] font-thunder text-[5.5vw] md:text-[2.5vw] font-semibold"
               style={{
                 color: textColor,
               }}
@@ -65,7 +65,7 @@ const ScrollingText = ({
               {text.split(' • ').map((char, index) => (
                 <span key={index} className="flex items-center justify-center">
                   {char}
-                  <MdDoubleArrow
+                  <ArrowBigRightDash
                     ref={(el) => {
                       const iconIndex = i * text.split(' • ').length + index;
                       iconRef.current[iconIndex] = el;
