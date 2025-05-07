@@ -85,7 +85,7 @@ const Hero = () => {
           textRef.current,
           { opacity: 0, zIndex: '-1' },
           { opacity: 1, x: '50%', zIndex: '10', ease: 'none' },
-          '<'
+          '<-=0.5'
         );
         [1, 3, 5].forEach((i) => {
           tl.to(`.row-${i}`, { y: `${i * 5}%`, ease: 'none' }, 0);
@@ -112,7 +112,7 @@ const Hero = () => {
   return (
     <div
       ref={containerRef}
-      className="relative  overflow-hidden w-screen h-[140vh] md:h-[200vh] bg-black"
+      className="relative  overflow-hidden w-screen h-[100vh] md:h-[200vh] bg-black"
     >
       <div
         ref={part_1Ref}

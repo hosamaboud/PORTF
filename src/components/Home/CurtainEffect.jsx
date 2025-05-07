@@ -152,7 +152,6 @@ const CurtainEffect = () => {
             end: '+=200',
             pin: true,
             scrub: 2,
-            markers: true,
           },
         });
 
@@ -174,8 +173,8 @@ const CurtainEffect = () => {
         tl.fromTo(
           imageRef.current,
           {
-            x: '100%',
-            scale: 0.95,
+            x: '200%',
+            scale: 0.8,
           },
           {
             opacity: 1,
@@ -262,7 +261,7 @@ const CurtainEffect = () => {
         </div>
 
         {/* part 2 */}
-        <div className="relative rounded-[10%] shadow-[0_0_20px_0_rgba(214,46,73,0.5)]  z-30 flex items-center justify-center md:h-[80vh] h-[70vh]  w-full  gap-4 will-change-transform">
+        <div className="relative rounded-[10%] shadow-[0_0_20px_0_rgba(214,46,73,0.5)]  z-30 flex items-center justify-center md:h-[80vh] h-[50vh]  w-full  gap-4 will-change-transform">
           <img
             ref={imageRef}
             loading="lazy"
@@ -283,7 +282,7 @@ const CurtainEffect = () => {
               ></div>
             </div>
             <div
-              className="flex relative overflow-hidden flex-col h-[5vh] sm:h-[6vh] md:h-[10vh] w-full"
+              className="flex relative overflow-hidden flex-col h-[4vh] sm:h-[6vh] md:h-[10vh] w-full"
               onMouseEnter={onEnter}
               onMouseLeave={onLeave}
               onTouchStart={onEnter}
@@ -293,7 +292,7 @@ const CurtainEffect = () => {
               <AnimatedText
                 ref={textRef}
                 text="Hossam Aboud"
-                className="absolute flex top-1/2 translate-y-[-50%] left-1/2 translate-x-[-50%] uppercase text-[#2A2929] text-[5vw] font-thunder will-change-transform"
+                className="absolute flex top-1/2 translate-y-[-50%] left-1/2 translate-x-[-50%] uppercase text-gray-600 text-[5vw] font-thunder will-change-transform"
               />
               <AnimatedText
                 ref={prevTextRef}

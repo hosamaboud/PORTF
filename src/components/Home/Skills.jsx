@@ -17,13 +17,13 @@ const Skills = () => {
       x: 0,
       width: '40px',
       height: '40px',
-      backgroundColor: '#397adc',
+      backgroundColor: '#000',
     },
     to: {
       x: 115,
       duration: 2.5,
       ease: 'sine.inOut',
-      backgroundColor: '#99b5e0',
+      backgroundColor: '#D62E49',
       yoyo: true,
       repeat: -1,
     },
@@ -135,7 +135,7 @@ const Skills = () => {
             ease: 'power4.out',
             scrollTrigger: {
               trigger: rightRef.current,
-              start: isMobile ? '-20% 90%' : 'top 80%',
+              start: isMobile ? '-20% 100%' : 'top 80%',
               end: isMobile ? '0% 90%' : '10% 80%',
               scrub: 1,
             },
@@ -153,7 +153,7 @@ const Skills = () => {
           const timeline = gsap.timeline({
             scrollTrigger: {
               trigger: devRef.current,
-              start: isMobile ? '0% 80%' : 'top 75%',
+              start: isMobile ? '0% 100%' : 'top 75%',
               end: isMobile ? '80% 40%' : '70% 30%',
               scrub: 1.2,
             },
@@ -242,7 +242,7 @@ const Skills = () => {
   return (
     <div
       ref={containerRef}
-      className="overflow-hidden h-[230vh] md:h-[280vh]  bg-black w-full flex flex-col md:flex-row"
+      className="overflow-hidden h-[150vh] md:h-[280vh]  bg-black w-full flex flex-col md:flex-row"
     >
       {/* Left Section */}
       <div
