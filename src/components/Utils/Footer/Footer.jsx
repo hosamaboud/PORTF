@@ -32,6 +32,8 @@ const Footer = () => {
         [
           gsap.to(ref.current, {
             x: 5,
+            duration: 0.5,
+            ease: 'expo.out',
           }),
           gsap.fromTo(
             dotRef.current,
@@ -44,6 +46,8 @@ const Footer = () => {
               scale: 1,
               x: 0,
               opacity: 1,
+              duration: 0.5,
+              ease: 'expo.out',
             }
           ),
         ],
@@ -55,6 +59,7 @@ const Footer = () => {
           delay: 0.5,
           opacity: 1,
           duration: 0.5,
+          ease: 'expo.out',
           yoyo: true,
           repeat: -1,
         }
@@ -75,6 +80,7 @@ const Footer = () => {
           }),
           gsap.to(ref.current, {
             x: 0,
+            ease: 'expo.out',
           }),
         ],
         '<'

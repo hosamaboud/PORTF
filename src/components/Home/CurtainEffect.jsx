@@ -148,9 +148,11 @@ const CurtainEffect = () => {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: textContainerRef.current,
-            start: 'top 60%',
-            end: '+=500',
+            start: 'top top',
+            end: '+=200',
+            pin: true,
             scrub: 2,
+            markers: true,
           },
         });
 
@@ -202,7 +204,7 @@ const CurtainEffect = () => {
   return (
     <div
       ref={containerRef}
-      className="relative  flex flex-col w-full  min-h-[110vh] md:min-h-[140vh] bg-black overflow-hidden"
+      className="relative  flex flex-col w-full  h-[150vh] md:min-h-[190vh] bg-black overflow-hidden"
     >
       {/* Wave SVG */}
       <svg
@@ -222,14 +224,14 @@ const CurtainEffect = () => {
       {/* Main content */}
       <div
         ref={textContainerRef}
-        className="relative  w-ful h-[160vh] md:h-[110vh] flex flex-col justify-around items-center px-10 z-20"
+        className="relative  w-ful md:h-[160vh] h-[100vh] flex flex-col justify-around items-center px-10 z-20"
       >
         {/* Text elements */}
-        <div className="relative w-full h-[80vh] ">
+        <div className="relative w-full h-[30vh] md:h-[70vh] ">
           {/* Background text */}
           <div
             aria-hidden="true"
-            className="absolute uppercase left-[5%] top-[30%] flex items-center gap-5 text-[10vw] font-thunder text-[#D62E49] opacity-50 whitespace-nowrap will-change-transform"
+            className="absolute uppercase left-1  md:left-[5%] md:top-[30%] top-[40%] flex items-center gap-5 text-[10vw] font-thunder text-[#D62E49] opacity-50 whitespace-nowrap will-change-transform"
           >
             i'm hossam aboud
           </div>
@@ -237,7 +239,7 @@ const CurtainEffect = () => {
           {/* Animated text 1 */}
           <div
             ref={text1Ref}
-            className="absolute uppercase left-[5%] top-[30%] flex items-center gap-5 text-[10vw] font-thunder  text-[#D62E49] overflow-hidden whitespace-nowrap will-change-transform"
+            className="absolute uppercase left-1 md:left-[5%] md:top-[30%] top-[40%] flex items-center gap-5 text-[10vw] font-thunder  text-[#D62E49] overflow-hidden whitespace-nowrap will-change-transform"
           >
             i'm hossam aboud
           </div>
@@ -245,7 +247,7 @@ const CurtainEffect = () => {
           {/* Background text 2 */}
           <div
             aria-hidden="true"
-            className="absolute left-[5%] top-[70%] text-[5vw] font-thunder uppercase text-[#e6fcfb] opacity-50 whitespace-nowrap will-change-transform"
+            className="absolute left-1 md:left-[5%] top-[70%] text-[4vw] md:text-[5vw] font-thunder uppercase text-[#e6fcfb] opacity-50 whitespace-nowrap will-change-transform"
           >
             frontend developer • web designer • service provider
           </div>
@@ -253,35 +255,35 @@ const CurtainEffect = () => {
           {/* Animated text 2 */}
           <div
             ref={text2Ref}
-            className="absolute left-[5%] top-[70%] text-[5vw] font-thunder uppercase text-[#e6fcfb] overflow-hidden whitespace-nowrap will-change-transform"
+            className="absolute left-1 md:left-[5%] top-[70%] text-[4vw] md:text-[5vw] font-thunder uppercase text-[#e6fcfb] overflow-hidden whitespace-nowrap will-change-transform"
           >
             frontend developer • web designer • service provider
           </div>
         </div>
 
         {/* part 2 */}
-        <div className="relative rounded-[10%] shadow-[0_0_20px_0_rgba(214,46,73,0.5)]  z-30 flex items-center justify-center h-[80vh]  w-[90%]  gap-4 will-change-transform">
+        <div className="relative rounded-[10%] shadow-[0_0_20px_0_rgba(214,46,73,0.5)]  z-30 flex items-center justify-center md:h-[80vh] h-[70vh]  w-full  gap-4 will-change-transform">
           <img
             ref={imageRef}
             loading="lazy"
-            className=" w-[300px] shadow-[0_0_20px_0_rgba(214,46,73,0.5)] rounded-full h-[300px] object-cover object-center will-change-transform"
+            className=" md:w-[300px] w-[200px] shadow-[0_0_20px_0_rgba(214,46,73,0.5)] rounded-full md:h-[300px] h-[200px] object-cover object-center will-change-transform"
             src="/23.webp"
             alt="Hossam Aboud - Frontend Developer, Web Designer, Service Provider"
             aria-label="Hossam Aboud profile illustration"
           />
-          <div className="absolute right-[5%] bottom-0  w-[250px] h-[10vh]  gap-4 flex items-center justify-center ">
+          <div className="absolute right-[5%] bottom-2 md:w-[30%] w-[150px] sm:w-[250px] flex items-center justify-center">
             <div
-              className="h-[20px] w-[20px] border-[1px] border-[#ff0000] rounded-[50%] flex  items-center justify-center"
+              className="h-[15px] w-[15px] sm:h-[18px] sm:w-[18px] md:h-[20px] md:w-[20px] border-[1px] border-[#ff0000] rounded-[50%] flex items-center justify-center"
               aria-label="Live status indicator"
             >
               <div
                 ref={liveRef}
-                className="bg-[#ff0000] h-[8px] w-[8px] rounded-full transition-scale duration-300"
+                className="bg-[#ff0000] h-[6px] w-[6px] sm:h-[7px] sm:w-[7px] md:h-[8px] md:w-[8px] rounded-full transition-scale duration-300"
                 aria-label="Live dot animation"
               ></div>
             </div>
             <div
-              className="flex relative overflow-hidden flex-col h-[5vh] w-[100%]"
+              className="flex relative overflow-hidden flex-col h-[5vh] sm:h-[6vh] md:h-[10vh] w-full"
               onMouseEnter={onEnter}
               onMouseLeave={onLeave}
               onTouchStart={onEnter}
@@ -291,12 +293,12 @@ const CurtainEffect = () => {
               <AnimatedText
                 ref={textRef}
                 text="Hossam Aboud"
-                className="absolute flex top-0 left-0 uppercase text-primaryLight text-4xl font-thunder "
+                className="absolute flex top-1/2 translate-y-[-50%] left-1/2 translate-x-[-50%] uppercase text-[#2A2929] text-[5vw] font-thunder will-change-transform"
               />
               <AnimatedText
                 ref={prevTextRef}
                 text="hossam aboud"
-                className="absolute flex top-0 left-0 uppercase text-text text-4xl font-thunder translate-y-full "
+                className="absolute flex top-1/2 translate-y-[50%] left-1/2 translate-x-[-50%] uppercase text-red-500 text-[5vw] font-thunder will-change-transform"
               />
             </div>
           </div>

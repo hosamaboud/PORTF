@@ -60,10 +60,9 @@ const Hero = () => {
           scrollTrigger: {
             trigger: part_1Ref.current,
             start: 'top top',
-            end: '+=500',
+            end: 'bottom top',
             scrub: 1.5,
             pin: true,
-            markers: false,
             anticipatePin: 1,
           },
         });
@@ -81,13 +80,12 @@ const Hero = () => {
             opacity: 1,
             ease: 'none',
             duration: 2,
-          },
-          0
+          }
         ).fromTo(
           textRef.current,
           { opacity: 0, zIndex: '-1' },
           { opacity: 1, x: '50%', zIndex: '10', ease: 'none' },
-          0
+          '<'
         );
         [1, 3, 5].forEach((i) => {
           tl.to(`.row-${i}`, { y: `${i * 5}%`, ease: 'none' }, 0);
@@ -98,13 +96,13 @@ const Hero = () => {
       });
 
       gsap.to(scrollDownRef.current, {
-        opacity: 0.5,
-        color: '#D44638',
         y: 10,
+        opacity: [1, 0.5],
+        color: '#D62E49',
+        duration: 1,
         repeat: -1,
         yoyo: true,
         ease: 'power1.inOut',
-        duration: 1,
       });
     });
 
@@ -114,20 +112,22 @@ const Hero = () => {
   return (
     <div
       ref={containerRef}
-      className="relative  overflow-hidden w-full h-[120vh] md:h-[200vh] bg-black"
+      className="relative  overflow-hidden w-screen h-[140vh] md:h-[200vh] bg-black"
     >
       <div
         ref={part_1Ref}
-        className="relative overflow-hidden w-full h-[100vh]"
+        className="relative overflow-hidden w-screen h-[100vh]"
       >
-        <div className="flex flex-col  items-center fixed bottom-20 right-5  md:right-10 z-10">
+        <div className="flex flex-col  items-center fixed bottom-10 md:bottom-20 right-5  md:right-10 z-10">
           <p className=" text-sm ">scroll down</p>
-          <FaArrowDown ref={scrollDownRef} className="  text-sm" />
+          <div ref={scrollDownRef}>
+            <FaArrowDown className="text-sm" />
+          </div>
         </div>
 
         <div
           ref={textRef}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 will-change-transform"
+          className="absolute top-1/2 left-1/2 translate-x-[-50%] will-change-transform"
         >
           <h1 className="text-4xl uppercase md:text-6xl font-bold text-center">
             Hello my friend.
@@ -142,8 +142,8 @@ const Hero = () => {
             {[1, 2, 3, 4, 5].map((i) => (
               <div
                 key={i}
-                className={`row-${i} w-[calc(200vw/5)] h-[100vh] md:h-[200vh] flex flex-col gap-[3vh]`}
-                style={{ marginTop: `-${i * 5}%` }}
+                className={`row-${i} w-[calc(200vw/5)] h-[120vh] md:h-[200vh] flex flex-col gap-[3vh]`}
+                style={{ marginTop: `-${i * 2}%` }}
               >
                 {Array.from({ length: 4 }).map((_, j) => (
                   <div
@@ -153,7 +153,7 @@ const Hero = () => {
                     <LazyImage
                       src={`/${(i - 1) * 4 + j + 1}.webp`}
                       alt={`Gallery ${i}-${j}`}
-                      className="h-[50vh] w-[40vw] object-cover object-center"
+                      className="h-[200px] w-[200px] md:h-[400px] md:w-[500px] object-cover object-center"
                       loading="lazy"
                     />
                   </div>
