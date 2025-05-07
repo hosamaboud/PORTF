@@ -170,7 +170,7 @@ const Hero = () => {
           <img
             ref={imageRef}
             className="bg-red-400 shadow-lg shadow-red-600 rounded-full border border-red-200 w-32 h-32"
-            src="/public/logo.svg"
+            src="/logo.svg"
             alt="logo"
             loading="lazy"
             width="128"

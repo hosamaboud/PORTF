@@ -1,16 +1,21 @@
+import React, { Suspense, lazy } from 'react';
 import CurtainEffect from '../components/Home/CurtainEffect';
-import Description from '../components/Home/Description';
-import Features from '../components/Home/Features';
 import Hero from '../components/Home/Hero';
-import Skills from '../components/Home/Skills';
+
+const Skills = lazy(() => import('../components/Home/Skills'));
+const Features = lazy(() => import('../components/Home/Features'));
+const Description = lazy(() => import('../components/Home/Description'));
+
 const Home = () => {
   return (
     <div className=" overflow-hidden touch-pan-y">
       <Hero />
       <CurtainEffect />
-      <Skills />
-      <Features />
-      <Description />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Skills />
+        <Features />
+        <Description />
+      </Suspense>
     </div>
   );
 };

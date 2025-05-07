@@ -63,13 +63,14 @@ const Preloader = ({ setIsLoading }) => {
           containerRef.current,
           {
             height: 0,
+            
             duration: 0.7,
             ease: 'power4.inOut',
             onComplete: () => setIsLoading(false),
           },
           '-=0.5'
         );
-    }, 2900);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, [setIsLoading]);

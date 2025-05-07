@@ -123,7 +123,7 @@ const Footer = () => {
     (text, ref, dotRef) => {
       return (
         <div
-          className="flex items-center justify-center gap-1 group"
+          className="flex  justify-center items-center md:gap-1 gap-0 group"
           onMouseEnter={() => handleMouseEnter(ref, dotRef)}
           onTouchStart={() => handleMouseEnter(ref, dotRef)}
           onMouseLeave={() => handleMouseLeave(ref, dotRef)}
@@ -131,12 +131,13 @@ const Footer = () => {
         >
           <div
             ref={dotRef}
-            className="w-[10px] h-[10px] bg-[#ff0000] opacity-0 rounded-full transition-opacity duration-100 group-hover:opacity-100 will-change-[transform,opacity]"
+            className="w-[5px] md:w-[10px] mb-1 md:mb-2 h-[5px] md:h-[10px] bg-[#ff0000] opacity-0 transition-opacity duration-100 group-hover:opacity-100 will-change-[transform,opacity] rounded-full"
           ></div>
+
           <AnimatedText
             ref={ref}
             text={text}
-            className="uppercase font-thunderLight text-[2vw] text-gray-400 group-hover:text-white transition-colors will-change-transform"
+            className="uppercase font-thunderLight text-[1rem] md:text-[2rem] text-gray-400 group-hover:text-white transition-colors will-change-transform"
           />
         </div>
       );
@@ -148,15 +149,15 @@ const Footer = () => {
     () => (
       <div className="col-span-2 flex items-center justify-around">
         <CustomButton
-          text={<Instagram className="w-10 h-10" />}
+          text={<Instagram className="w-8 md:w-10 h-8 md:h-10" />}
           link="https://www.instagram.com/aboud.hossam/"
         />
         <CustomButton
-          text={<Linkedin className="w-10 h-10" />}
+          text={<Linkedin className="w-8 md:w-10 h-8 md:h-10" />}
           link="https://www.linkedin.com/in/hosam-aboud-904049174"
         />
         <CustomButton
-          text={<Github className="w-10 h-10" />}
+          text={<Github className="w-8 md:w-10 h-8 md:h-10" />}
           link="https://github.com/hosamaboud"
         />
       </div>
@@ -169,13 +170,13 @@ const Footer = () => {
       <div className="h-full w-full grid grid-cols-1 md:grid-cols-5">
         {socialButtons}
         <div className="col-span-3 w-[100%] flex flex-col items-center justify-around">
-          <div className="grid grid-cols-3 w-full">
+          <div className="grid place-items-center grid-cols-3 gap-x-5 md:gap-x-10 lg:gap-x-14">
             {ButtonNav('about', textBtnRef_1, dotRef_1)}
             {ButtonNav('projects', textBtnRef_2, dotRef_2)}
             {ButtonNav('contact', textBtnRef_3, dotRef_3)}
           </div>
           <div
-            className="relative overflow-hidden md:h-[20vh] h-[10vh] w-[100%]"
+            className="relative overflow-hidden md:h-[20vh] h-[5vh] w-[100%]"
             onMouseEnter={onEnter}
             onMouseLeave={onLeave}
             onTouchStart={onEnter}

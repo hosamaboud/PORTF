@@ -68,7 +68,7 @@ const CustomButton = ({ text, link }) => {
       type="button"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="relative w-[100px] h-[100px] rounded-full overflow-hidden"
+      className="relative w-[80px] md:w-[100px] h-[80px] md:h-[100px] rounded-full overflow-hidden"
     >
       <div
         ref={buttonRef}
