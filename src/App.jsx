@@ -1,5 +1,5 @@
 import { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { useLoading } from './Context/ContextApp';
 import MainLayout from './layout/MainLayout';
 import CustomCursor from './components/Utils/CustomCursor';
@@ -23,7 +23,7 @@ const App = () => {
   const { isLoading, setIsLoading } = useLoading();
 
   return (
-    <Router>
+    <>
       <CustomCursor />
       <Suspense fallback={<Loading />}>
         <Routes>
@@ -38,7 +38,7 @@ const App = () => {
       </Suspense>
 
       {isLoading && <Preloader setIsLoading={setIsLoading} />}
-    </Router>
+    </>
   );
 };
 
