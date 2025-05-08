@@ -1,203 +1,131 @@
-import React, { useState, useEffect, useRef } from 'react';
-import gsap from 'gsap';
+import { useEffect, useRef } from 'react';
+import { gsap } from '../../gsap-config';
 
 const CustomCursor = () => {
   const cursorRef = useRef(null);
-  const cursorInnerRef = useRef(null);
-  const cursorOuterRef = useRef(null);
-  const cursorLabelRef = useRef(null);
-
-  const [isHovering, setIsHovering] = useState(false);
-  const [hoverType, setHoverType] = useState(null);
-  const [isActive, setIsActive] = useState(false);
+  const followerRef = useRef(null);
+  const textRef = useRef(null);
 
   useEffect(() => {
-    // Set initial position to center
-    gsap.set(cursorRef.current, {
-      x: window.innerWidth / 2,
-      y: window.innerHeight / 2,
-    });
+    const cursor = cursorRef.current;
+    const follower = followerRef.current;
+    const text = textRef.current;
 
-    const moveCursor = (e) => {
-      gsap.to(cursorRef.current, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.7,
-        ease: 'power3.out',
+    document.body.style.cursor = 'none';
+
+    const moveElements = (e) => {
+      const { clientX, clientY } = e;
+
+      gsap.to(cursor, {
+        x: clientX,
+        y: clientY,
+        duration: 0.1,
+        ease: 'power2.out',
+      });
+
+      gsap.to(follower, {
+        x: clientX,
+        y: clientY,
+        duration: 0.3,
+        ease: 'power2.out',
+      });
+
+      gsap.to(text, {
+        x: clientX,
+        y: clientY + 30,
+        duration: 0.3,
+        ease: 'power2.out',
       });
     };
 
-    const handleMouseDown = () => {
-      setIsActive(true);
-      gsap.to(cursorOuterRef.current, {
-        scale: 0.7,
-        duration: 0.2,
-      });
+    const handleMouseOver = (e) => {
+      const target = e.target;
+
+      if (
+        target.tagName.toLowerCase() === 'a' ||
+        target.tagName.toLowerCase() === 'button' ||
+        target.closest('a') ||
+        target.closest('button')
+      ) {
+        gsap.to([cursor, follower], {
+          scale: 1.2,
+          duration: 0.3,
+        });
+        gsap.to(text, {
+          opacity: 1,
+          scale: 1,
+          duration: 0.3,
+        });
+      }
     };
 
-    const handleMouseUp = () => {
-      setIsActive(false);
-      gsap.to(cursorOuterRef.current, {
+    const handleMouseOut = () => {
+      gsap.to([cursor, follower], {
         scale: 1,
+        duration: 0.3,
+      });
+      gsap.to(text, {
+        opacity: 0,
+        scale: 0,
         duration: 0.3,
       });
     };
 
-    // Add hover detection
-    const addHoverEffects = () => {
-      const hoverElements = document.querySelectorAll(
-        'a, button, input, textarea, img, [data-cursor-hover]'
+    window.addEventListener('mousemove', moveElements);
+    document.addEventListener('mouseover', handleMouseOver);
+    document.addEventListener('mouseout', handleMouseOut);
+
+    const isMobile =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
       );
 
-      hoverElements.forEach((el) => {
-        el.addEventListener('mouseenter', (e) => {
-          setIsHovering(true);
-          if (el.tagName === 'A') setHoverType('link');
-          else if (el.tagName === 'BUTTON') setHoverType('button');
-          else if (el.tagName === 'IMG') setHoverType('image');
-          else if (['INPUT', 'TEXTAREA'].includes(el.tagName))
-            setHoverType('input');
-          else if (el.hasAttribute('data-cursor-hover'))
-            setHoverType(el.getAttribute('data-cursor-hover'));
-
-          // Animate on hover
-          gsap.to(cursorInnerRef.current, {
-            scale: 0,
-            duration: 0.3,
-          });
-
-          gsap.to(cursorOuterRef.current, {
-            scale: getHoverScale(),
-            backgroundColor: getHoverColor(),
-            duration: 0.3,
-          });
-        });
-
-        el.addEventListener('mouseleave', () => {
-          setIsHovering(false);
-          setHoverType(null);
-
-          // Animate back to normal
-          gsap.to(cursorInnerRef.current, {
-            scale: 1,
-            duration: 0.3,
-          });
-
-          gsap.to(cursorOuterRef.current, {
-            scale: 1,
-            backgroundColor: 'transparent',
-            duration: 0.3,
-          });
-
-          gsap.to(cursorLabelRef.current, {
-            opacity: 0,
-            y: 10,
-            duration: 0.2,
-          });
-        });
+    if (isMobile) {
+      [cursor, follower, text].forEach((el) => {
+        if (el) el.style.display = 'none';
       });
-    };
-
-    document.addEventListener('mousemove', moveCursor);
-    document.addEventListener('mousedown', handleMouseDown);
-    document.addEventListener('mouseup', handleMouseUp);
-
-    addHoverEffects();
+      document.body.style.cursor = 'auto';
+    }
 
     return () => {
-      document.removeEventListener('mousemove', moveCursor);
-      document.removeEventListener('mousedown', handleMouseDown);
-      document.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('mousemove', moveElements);
+      document.removeEventListener('mouseover', handleMouseOver);
+      document.removeEventListener('mouseout', handleMouseOut);
+      document.body.style.cursor = 'auto';
     };
   }, []);
 
-  // Update label when hover type changes
-  useEffect(() => {
-    if (isHovering && hoverType) {
-      gsap.fromTo(
-        cursorLabelRef.current,
-        { opacity: 0, y: 10 },
-        { opacity: 1, y: 0, duration: 0.3 }
-      );
-    }
-  }, [hoverType, isHovering]);
-
-  const getHoverScale = () => {
-    switch (hoverType) {
-      case 'link':
-        return 1.5;
-      case 'button':
-        return 1.8;
-      case 'image':
-        return 2;
-      case 'input':
-        return 0.5;
-      default:
-        return 1.5;
-    }
-  };
-
-  const getHoverColor = () => {
-    switch (hoverType) {
-      case 'link':
-        return 'rgba(100, 200, 255, 0.3)';
-      case 'button':
-        return 'rgba(255, 150, 50, 0.3)';
-      case 'image':
-        return 'rgba(150, 255, 100, 0.3)';
-      case 'input':
-        return 'rgba(255, 255, 255, 0.5)';
-      default:
-        return 'rgba(200, 200, 200, 0.3)';
-    }
-  };
-
-  const getLabelText = () => {
-    switch (hoverType) {
-      case 'link':
-        return 'Visit';
-      case 'button':
-        return 'Click';
-      case 'image':
-        return 'View';
-      case 'input':
-        return 'Type';
-      default:
-        return hoverType || '';
-    }
-  };
-
   return (
-    <div
-      ref={cursorRef}
-      className="fixed pointer-events-none z-50 mix-blend-difference transform -translate-x-1/2 -translate-y-1/2"
-    >
-      {/* Inner dot */}
+    <>
+      {/* الدائرة الصغيرة (النقطة الحمراء) */}
       <div
-        ref={cursorInnerRef}
-        className={`absolute w-2 h-2 rounded-full bg-white transform -translate-x-1/2 -translate-y-1/2 ${
-          isActive ? 'scale-75' : 'scale-100'
-        } transition-transform duration-200`}
+        ref={cursorRef}
+        className="hidden md:block fixed pointer-events-none z-[9999] w-[10px] h-[10px] rounded-full"
+        style={{
+          transform: 'translate(-50%, -50%)',
+          backgroundColor: 'rgba(255, 0, 0, 0.3)',
+        }}
       />
 
-      {/* Outer circle */}
+      {/* الدائرة الكبيرة (تأثير mix-blend-difference) */}
       <div
-        ref={cursorOuterRef}
-        className={`absolute w-6 h-6 border-2 border-white rounded-full transform -translate-x-1/2 -translate-y-1/2 ${
-          isActive ? 'scale-75 border-red-500' : 'scale-100'
-        } transition-all duration-300`}
+        ref={followerRef}
+        className="hidden md:block fixed pointer-events-none z-[9998] w-7 h-7 rounded-full bg-black  opacity-30 border-[1px] border-[#FF0000] "
+        style={{
+          transform: 'translate(-50%, -50%)',
+          boxShadow: '0 0 10px rgba(255, 0, 0, 0.3)',
+        }}
       />
 
-      {/* Label */}
-      {isHovering && (
-        <div
-          ref={cursorLabelRef}
-          className="absolute top-8 left-8 bg-white text-black px-2 py-1 rounded text-xs font-medium whitespace-nowrap opacity-0"
-        >
-          {getLabelText()}
-        </div>
-      )}
-    </div>
+      {/* نص "Visit" (يظهر عند Hover على روابط) */}
+      <div
+        ref={textRef}
+        className="hidden md:block fixed pointer-events-none z-[9997] px-3 py-1 text-sm font-thunder uppercase bg-[#FF0000] text-black rounded-full opacity-0 scale-0"
+        style={{ transform: 'translate(-50%, -50%)' }}
+      >
+        Visit
+      </div>
+    </>
   );
 };
 

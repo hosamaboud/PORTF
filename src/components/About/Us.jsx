@@ -105,29 +105,26 @@ const Us = () => {
   );
 
   return (
-    <>
+    <div
+      ref={usRef}
+      className="h-[100vh] py-10 w-full flex flex-col items-center justify-center"
+    >
       <div
-        ref={usRef}
-        className="h-[100vh] py-10 w-full flex flex-col items-center justify-center"
+        ref={containerImgRef}
+        className="flex items-center gap-4 justify-center h-[100px] w-[90%] md:w-[60%] lg:w-[40%]"
+        onMouseEnter={handleContainerEnter}
+        onMouseLeave={handleContainerLeave}
       >
-        <div
-          ref={containerImgRef}
-          className="flex items-center gap-4 justify-center h-[100px] w-[90%] md:w-[60%] lg:w-[40%]"
-          onMouseEnter={handleContainerEnter}
-          onMouseLeave={handleContainerLeave}
-        >
-          {renderImages}
-        </div>
-        <div className="h-[50vh] w-full flex items-center justify-center relative">
-          <AnimatedText
-            ref={textRef}
-            text={currentText}
-            className={`h-[40vh] flex items-center justify-center uppercase text-[5rem] md:text-[10rem] lg:text-[15rem] font-thunder ${textColor}`}
-          />
-        </div>
+        {renderImages}
       </div>
-      <div className="mx-auto h-[1px] w-[90%] bg-[#393E46]"></div>
-    </>
+      <div className="h-[50vh] w-full flex items-center justify-center relative">
+        <AnimatedText
+          ref={textRef}
+          text={currentText}
+          className={`h-[40vh] flex items-center justify-center uppercase text-[5rem] md:text-[10rem] lg:text-[15rem] font-thunder ${textColor}`}
+        />
+      </div>
+    </div>
   );
 };
 

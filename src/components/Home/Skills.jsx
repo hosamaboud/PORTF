@@ -135,7 +135,7 @@ const Skills = () => {
             ease: 'power4.out',
             scrollTrigger: {
               trigger: rightRef.current,
-              start: isMobile ? '-20% 100%' : 'top 80%',
+              start: isMobile ? '-20% 100%' : 'top 100%',
               end: isMobile ? '0% 90%' : '10% 80%',
               scrub: 1,
             },
@@ -154,7 +154,7 @@ const Skills = () => {
             scrollTrigger: {
               trigger: devRef.current,
               start: isMobile ? '0% 100%' : 'top 75%',
-              end: isMobile ? '80% 40%' : '70% 30%',
+              end: isMobile ? '80% 60%' : '70% 30%',
               scrub: 1.2,
             },
           });
@@ -162,7 +162,7 @@ const Skills = () => {
           timeline
             .fromTo(
               devRef.current,
-              { y: 40, opacity: 0, scale: 0.95 },
+              { y: 30, opacity: 0, scale: 0.9 },
               {
                 y: 0,
                 opacity: 1,
@@ -174,7 +174,7 @@ const Skills = () => {
             )
             .fromTo(
               subtitleRef.current,
-              { y: 30, opacity: 0 },
+              { y: 20, opacity: 0 },
               {
                 y: 0,
                 opacity: 1,
@@ -187,18 +187,17 @@ const Skills = () => {
             .to(
               devRef.current,
               {
-                y: -40,
                 opacity: 0,
                 scale: 0.9,
                 ease: 'power1.inOut',
                 duration: 1,
               },
-              `+=${2.5 - index * 0.1}`
+              `+=${1.5 - index * 0.1}`
             )
             .to(
               subtitleRef.current,
               {
-                y: -30,
+                y: -20,
                 opacity: 0,
                 ease: 'power1.inOut',
                 duration: 0.8,
@@ -242,7 +241,7 @@ const Skills = () => {
   return (
     <div
       ref={containerRef}
-      className="overflow-hidden h-[150vh] md:h-[280vh]  bg-black w-full flex flex-col md:flex-row"
+      className="overflow-hidden h-[210vh]  md:h-[280vh]  bg-black w-full flex flex-col md:flex-row"
     >
       {/* Left Section */}
       <div
@@ -277,15 +276,15 @@ const Skills = () => {
       {/* Right Section - Skills List */}
       <div
         ref={rightRef}
-        className="flex flex-col gap-5 w-[95%] md:w-1/2 h-full will-change-transform"
+        className="flex flex-col py-5 gap-5 mx-auto w-[95%] md:w-1/2 h-full will-change-transform"
       >
         {skillsData.map((skill) => (
           <div
             key={skill.id}
             ref={skillRefs[`dev_${skill.id}Ref`]}
-            className="flex flex-col items-center justify-center gap-7 w-full h-[40%] md:h-[20%] px-4 will-change-transform"
+            className="group rounded-[20px] shadow-[0_0_20px_rgba(214,46,73,0.5)] flex flex-col items-center justify-around w-full md:w-[90%] h-[30vh] md:h-[20%] px-4 will-change-transform"
           >
-            <div className="flex md:flex-row flex-col gap-4 justify-around w-full items-center">
+            <div className=" flex flex-row  gap-4 justify-around w-full items-center">
               <p
                 className="text-3xl transition-colors duration-300 will-change-transform"
                 style={{ color: skill.color }}
@@ -296,7 +295,7 @@ const Skills = () => {
                 role="img"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-20 h-20 md:w-24 md:h-24 transition-all duration-300 will-change-transform"
+                className="p-2 w-20 h-20 md:w-24 md:h-24 transition-shadow rounded-full group-hover:shadow-[0_0_10px_rgba(214,46,73,0.5)] duration-300 will-change-transform"
                 fill={skill.iconFill}
                 aria-label={`${skill.title} icon`}
               >
@@ -307,7 +306,7 @@ const Skills = () => {
             <AnimatedText
               ref={skillRefs[`subtitle_${skill.id}Ref`]}
               text={skill.description}
-              className="text-base md:text-lg md:whitespace-nowrap text-center px-4 will-change-transform"
+              className="group-hover:text-[#ff0000] transition-color duration-300 text-lg md:whitespace-nowrap text-center  will-change-transform"
             />
           </div>
         ))}

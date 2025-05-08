@@ -1,4 +1,5 @@
 import { Github, Instagram, Linkedin } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import CustomButton from '../CustomButton';
 import ScrollingText from '../ScrollingText';
 import AnimatedText from '../AnimatedText';
@@ -128,16 +129,19 @@ const Footer = () => {
   const ButtonNav = useCallback(
     (text, ref, dotRef) => {
       return (
-        <div
-          className="flex  justify-center items-center md:gap-1 gap-0 group"
+        <Link
+          to={`/${text.toLowerCase()}`}
+          className="flex justify-center items-center md:gap-1 gap-0 group"
           onMouseEnter={() => handleMouseEnter(ref, dotRef)}
           onTouchStart={() => handleMouseEnter(ref, dotRef)}
           onMouseLeave={() => handleMouseLeave(ref, dotRef)}
           onTouchEnd={() => handleMouseLeave(ref, dotRef)}
+          aria-label={`Navigate to ${text} page`}
         >
           <div
             ref={dotRef}
             className="w-[5px] md:w-[10px] mb-1 md:mb-2 h-[5px] md:h-[10px] bg-[#ff0000] opacity-0 transition-opacity duration-100 group-hover:opacity-100 will-change-[transform,opacity] rounded-full"
+            aria-hidden="true"
           ></div>
 
           <AnimatedText
@@ -145,7 +149,7 @@ const Footer = () => {
             text={text}
             className="uppercase font-thunderLight text-[1rem] md:text-[2rem] text-gray-400 group-hover:text-white transition-colors will-change-transform"
           />
-        </div>
+        </Link>
       );
     },
     [handleMouseEnter, handleMouseLeave]
@@ -157,14 +161,17 @@ const Footer = () => {
         <CustomButton
           text={<Instagram className="w-8 md:w-10 h-8 md:h-10" />}
           link="https://www.instagram.com/aboud.hossam/"
+          ariaLabel="Visit Hossam Aboud's Instagram profile"
         />
         <CustomButton
           text={<Linkedin className="w-8 md:w-10 h-8 md:h-10" />}
           link="https://www.linkedin.com/in/hosam-aboud-904049174"
+          ariaLabel="Visit Hossam Aboud's LinkedIn profile"
         />
         <CustomButton
           text={<Github className="w-8 md:w-10 h-8 md:h-10" />}
           link="https://github.com/hosamaboud"
+          ariaLabel="Visit Hossam Aboud's GitHub profile"
         />
       </div>
     ),
@@ -173,6 +180,7 @@ const Footer = () => {
 
   return (
     <div className="h-[60vh] bg-black mx-auto w-[95%] overflow-hidden flex flex-col">
+      <div className="h-[1px] w-[90%] bg-[#ff0000] mx-auto"></div>
       <div className="h-full w-full grid grid-cols-1 md:grid-cols-5">
         {socialButtons}
         <div className="col-span-3 w-[100%] flex flex-col items-center justify-around">
@@ -205,7 +213,7 @@ const Footer = () => {
       <ScrollingText
         text="Free Palestine - #EndOccupation - Justice For All"
         bgColor="#000"
-        textColor="#A80038"
+        textColor="#FF0038"
         iconColor="#FB9935"
         repeatCount={20}
         speed={10}

@@ -278,7 +278,8 @@ const CurtainEffect = () => {
               <div
                 ref={liveRef}
                 className="bg-[#ff0000] h-[6px] w-[6px] sm:h-[7px] sm:w-[7px] md:h-[8px] md:w-[8px] rounded-full transition-scale duration-300"
-                aria-label="Live dot animation"
+                role="status"
+                aria-label="Live status indicator"
               ></div>
             </div>
             <div

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { gsap } from '../../gsap-config';
 import { useRef } from 'react';
 
-const CustomButton = ({ text, link }) => {
+const CustomButton = ({ text, link, ariaLabel }) => {
   const buttonRef = useRef(null);
   const overlayRef = useRef(null);
   const textRef = useRef(null);
@@ -69,6 +69,7 @@ const CustomButton = ({ text, link }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className="relative w-[80px] md:w-[100px] h-[80px] md:h-[100px] rounded-full overflow-hidden"
+      aria-label={ariaLabel}
     >
       <div
         ref={buttonRef}
@@ -77,6 +78,7 @@ const CustomButton = ({ text, link }) => {
         <p
           ref={textRef}
           className="z-10 text-2xl text-[#FFEEEE] transition-scale duration-100"
+          aria-hidden="true"
         >
           {text}
         </p>
@@ -84,6 +86,7 @@ const CustomButton = ({ text, link }) => {
       <div
         ref={overlayRef}
         className="absolute opacity-0 z-[5] flex items-center justify-center bottom-0 left-1/2 -translate-x-1/2 w-[10px] h-[10px] rounded-full bg-[#F93434]"
+        aria-hidden="true"
       ></div>
     </Link>
   );

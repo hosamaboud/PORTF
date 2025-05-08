@@ -17,7 +17,6 @@ const ScrollingText = ({
     const ctx = gsap.context(() => {
       const scrollingTextElements = moveText.current.filter(Boolean);
 
-      // تحريك مستمر بدون wheel event
       const animation = gsap.to(scrollingTextElements, {
         x: '100%',
         duration: speed,
@@ -25,16 +24,6 @@ const ScrollingText = ({
         repeat: -1,
         yoyo: true,
       });
-
-      gsap.to(iconRef.current.filter(Boolean), {
-        scale: 0.5,
-        opacity: 0.5,
-        duration: 3,
-        repeat: -1,
-        yoyo: true,
-        ease: 'none',
-      });
-
       return () => {
         animation.kill();
       };
@@ -65,14 +54,6 @@ const ScrollingText = ({
               {text.split(' • ').map((char, index) => (
                 <span key={index} className="flex items-center justify-center">
                   {char}
-                  <ArrowBigRightDash
-                    ref={(el) => {
-                      const iconIndex = i * text.split(' • ').length + index;
-                      iconRef.current[iconIndex] = el;
-                    }}
-                    className="text-[6vw] mx-1"
-                    style={{ color: iconColor }}
-                  />
                 </span>
               ))}
             </h1>
