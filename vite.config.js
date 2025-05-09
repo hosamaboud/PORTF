@@ -7,27 +7,20 @@ export default defineConfig({
   plugins: [
     react(),
     viteCompression({
-      algorithm: 'gzip',
-      ext: '.gz',
+      algorithm: 'brotli',
+      ext: '.br',
+      threshold: 1024,
     }),
   ],
   build: {
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'animation-vendor': ['gsap', '@gsap/react', '@studio-freight/lenis'],
-          'ui-vendor': ['react-icons', 'lucide-react'],
+          react: ['react', 'react-dom', 'react-router-dom'],
+          gsap: ['gsap', '@studio-freight/lenis'],
+          icons: ['react-icons'],
         },
-      },
-    },
-    chunkSizeWarningLimit: 1000,
-    sourcemap: false,
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
       },
     },
   },
