@@ -28,7 +28,7 @@ const Hero = () => {
 
         tl.fromTo(
           rotateDiv.current,
-          { rotation: 0, y: 0, scale: 1, opacity: 0.4 },
+          { rotation: 0, y: 0, scale: 1, opacity: 0.7 },
           {
             width: '50%',
             height: '50%',
@@ -69,7 +69,7 @@ const Hero = () => {
 
         tl.fromTo(
           rotateDiv.current,
-          { rotation: 0, y: 0, scale: 1, opacity: 0.4 },
+          { rotation: 0, y: 0, scale: 1, opacity: 0.7 },
           {
             width: '60%',
             height: '60%',
@@ -112,13 +112,13 @@ const Hero = () => {
   return (
     <div
       ref={containerRef}
-      className="relative  overflow-hidden w-screen h-[100vh] md:h-[200vh] bg-black"
+      className="relative  overflow-hidden w-screen h-[100dvh] md:h-[200dvh] bg-black"
     >
       <div
         ref={part_1Ref}
         className="relative overflow-hidden w-screen h-[100vh]"
       >
-        <div className="flex flex-col  items-center fixed bottom-10 md:bottom-20 right-5  md:right-10 z-10">
+        <div className="flex flex-col  items-center fixed bottom-10  right-5  md:right-10 z-10">
           <p className=" text-sm ">scroll down</p>
           <div ref={scrollDownRef}>
             <FaArrowDown className="text-sm" />

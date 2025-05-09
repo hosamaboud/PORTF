@@ -46,6 +46,7 @@ cd portf
 npm install
 
 ```
+
 ### 3. Run the development server
 
 ```bash
@@ -80,15 +81,13 @@ src/
 └── App.jsx
 
 ```
+
 ## 📸 Demo & Preview
 
 Live demo: [https://portf-teal-three.vercel.app/](https://portf-teal-three.vercel.app/)
 
-![Demo Screenshot](screenshots/1.png)
-![Demo Screenshot](screenshots/2.png)
-![Demo Screenshot](screenshots/3.png)
-![Demo Screenshot](screenshots/4.png)
-![Demo Screenshot](screenshots/5.png)
-![Demo Screenshot](screenshots/6.png)
-![Demo Screenshot](screenshots/7.png)
-![Demo Screenshot](screenshots/8.png)
+![Demo Screenshot](screenshots/1.webp)
+![Demo Screenshot](screenshots/2.webp)
+![Demo Screenshot](screenshots/3.webp)
+![Demo Screenshot](screenshots/4.webp)
+![Demo Screenshot](screenshots/5.webp)

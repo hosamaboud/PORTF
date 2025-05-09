@@ -203,7 +203,7 @@ const CurtainEffect = () => {
   return (
     <div
       ref={containerRef}
-      className="relative  flex flex-col w-full  h-[150vh] md:min-h-[190vh] bg-black overflow-hidden"
+      className="relative  flex flex-col w-full  h-[150dvh] md:min-h-[190dvh] bg-black overflow-hidden"
     >
       {/* Wave SVG */}
       <svg
@@ -223,10 +223,10 @@ const CurtainEffect = () => {
       {/* Main content */}
       <div
         ref={textContainerRef}
-        className="relative  w-ful md:h-[160vh] h-[100vh] flex flex-col justify-around items-center px-10 z-20"
+        className="relative  w-ful md:h-[160dvh] h-[100dvh] flex flex-col justify-around items-center px-10 z-20"
       >
         {/* Text elements */}
-        <div className="relative w-full h-[30vh] md:h-[70vh] ">
+        <div className="relative w-full h-[30dvh] md:h-[70dvh] ">
           {/* Background text */}
           <div
             aria-hidden="true"
